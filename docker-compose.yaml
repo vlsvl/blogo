@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./:/var/www/
+      - ./docker/nginx/:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    networks:
+      - blogo
+    depends_on:
+      - php
+      - postgres
+
+  php:
+    image: idleo/lardo:latest
+    environment:
+      XDEBUG_MODE: 'debug,develop,coverage'
+      XDEBUG_CLIENT_HOST: 'client_host=172.17.0.1'
+    volumes:
+      - ./:/var/www
+    networks:
+      - blogo
+
+  postgres:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      POSTGRES_DB: '${DB_DATABASE}'
+      POSTGRES_USER: '${DB_USERNAME}'
+    volumes:
+      - 'postgres_data_blogo:/var/lib/postgresql/data'
+    networks:
+      - blogo
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'redis_data_blogo:/data'
+    networks:
+      - blogo
+
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    ports:
+      - '${FORWARD_MAILHOG_PORT:-1025}:1025'
+      - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+    networks:
+      - blogo
+
+networks:
+  blogo:
+    driver: bridge
+
+volumes:
+  postgres_data_blogo:
+  redis_data_blogo:
+  meilisearch_data_blogo:
