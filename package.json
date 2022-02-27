@@ -9,14 +9,22 @@
         "prod": "npm run production",
         "production": "mix --production"
     },
-    "devDependencies": {
+    "dependencies": {
         "@inertiajs/inertia": "^0.11.0",
-        "@inertiajs/inertia-vue3": "^0.6.0",
+        "@inertiajs/inertia-vue3": "^0.6.0"
+    },
+    "devDependencies": {
         "@inertiajs/progress": "^0.2.6",
         "@tailwindcss/forms": "^0.4.0",
         "@vue/compiler-sfc": "^3.2.30",
         "autoprefixer": "^10.4.2",
         "axios": "^0.25",
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^5.2.0",
+        "eslint-plugin-vue": "^8.5.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.4.6",
