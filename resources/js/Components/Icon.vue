@@ -1,3 +1,8 @@
+<script setup>
+defineProps({
+  name: String,
+})
+</script>
 <template>
   <i v-if="name === 'speedometer'" class="inline-block mr-3">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer" viewBox="0 0 16 16">
@@ -24,18 +29,3 @@
     </svg>
   </i>
 </template>
-
-<script>
-import {defineComponent} from 'vue'
-
-export default defineComponent({
-  props: {
-    name: String,
-    currentColor: String,
-  },
-
-  created() {
-    console.log(this.name)
-  },
-})
-</script>

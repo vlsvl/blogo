@@ -1,5 +1,4 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
 import PublicLayout from '@/Layouts/Public.vue'
 import Hero from '@/Components/Public/Hero'
 
