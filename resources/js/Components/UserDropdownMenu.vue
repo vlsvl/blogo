@@ -47,7 +47,7 @@ export default {
           "
         >
           <div class="h-8 w-8 rounded-full object-cover">
-            <icon name="user" class="w-full {{ iconColorClass }}" />
+            <icon name="user" />
           </div>
         </button>
       </template>

@@ -74,6 +74,16 @@ php: ## Start application container
 	${PHP} /bin/sh
 
 
+##
+##Work with browser
+##---------------
+open-site: ## Open site in default browser
+	nohup xdg-open http://blogo.test
+
+open-mail: ## Open mailhog in default browser
+	nohup xdg-open http://localhost:8025
+
+
 .DEFAULT_GOAL := help
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'

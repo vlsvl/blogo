@@ -60,8 +60,8 @@ const toggleSidebar = () => {
 </script>
 
 <template>
-  <Head :title="title" />
   <div class="flex">
+    <Head :title="title" />
     <!-- Sidebar -->
     <nav
       class="

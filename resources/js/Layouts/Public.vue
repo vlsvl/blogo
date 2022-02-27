@@ -27,8 +27,8 @@ const navLinks = [
 </script>
 
 <template>
-  <Head :title="title" />
   <div class="min-h-screen w-full flex flex-col">
+    <Head :title="title" />
     <!-- Header start -->
     <nav
       class="w-full mx-auto flex justify-between items-center border-t-8 border-main-blue"

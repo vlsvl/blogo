@@ -1,0 +1,4 @@
+Opening in existing browser session.
+[819959:819959:0100/000000.457170:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+Opening in existing browser session.
+[820520:820520:0100/000000.727127:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.

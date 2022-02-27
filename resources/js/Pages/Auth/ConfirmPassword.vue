@@ -3,7 +3,7 @@ import BreezeButton from '@/Components/Form/Button.vue'
 import BreezeGuestLayout from '@/Layouts/Guest.vue'
 import BreezeInput from '@/Components/Form/Input.vue'
 import BreezeLabel from '@/Components/Form/Label.vue'
-import { Head, useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/inertia-vue3'
 
 const form = useForm({
   password: '',
@@ -17,9 +17,7 @@ const submit = () => {
 </script>
 
 <template>
-  <BreezeGuestLayout>
-    <Head title="Confirm Password" />
-
+  <BreezeGuestLayout title="Confirm Password">
     <div class="mb-4 text-sm text-gray-600">
       This is a secure area of the application. Please confirm your password before continuing.
     </div>
