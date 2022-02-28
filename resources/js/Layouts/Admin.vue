@@ -23,6 +23,11 @@ const links = [
         route: 'users.index',
         title: 'users',
       },
+      {
+        type: 'link',
+        route: 'roles.index',
+        title: 'roles',
+      },
     ],
   },
 ]

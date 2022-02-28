@@ -1,10 +1,11 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\UserProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/admin', function () {
     return redirect(route('dashboard'), 301);
@@ -25,4 +26,6 @@ Route::group([
         Route::post('profile/delete-profile', [UserProfileController::class, 'deleteCurrentUserProfile'])->name('profile.deleteCurrentProfile');
         // Users
         Route::resource('users', UserController::class);
+        // Roles
+        Route::resource('roles', RoleController::class);
 });

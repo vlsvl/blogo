@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -13,9 +14,24 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return Inertia::render(
+            'Admin/Users/Index', [
+            'filters' => $request->all('search', 'role'),
+            'users' => User::orderBy('id', 'asc')
+                ->filter($request->only('search'))
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($user) => [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'role' => $user->role->title,
+                    ]
+                ),
+            ]
+        );
     }
 
     /**
