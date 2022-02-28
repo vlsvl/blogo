@@ -1,5 +1,4 @@
 <script setup>
-import { watch } from 'vue'
 import { useForm } from '@inertiajs/inertia-vue3'
 import AdminLayout from '@/Layouts/Admin.vue'
 import IndexPage from '@/Components/Admin/IndexPage.vue'
