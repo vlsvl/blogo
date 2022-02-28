@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Profile\UserProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,8 +28,6 @@ Route::group([
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->name('dashboard');
-        Route::get('profile/{user}', function () {
-            return Inertia::render('Profile/Index');
-        })->name('profile');
+        Route::get('profile/{user}', [UserProfileController::class, 'index'])->name('profile');
         Route::resource('users', UserController::class);
 });
