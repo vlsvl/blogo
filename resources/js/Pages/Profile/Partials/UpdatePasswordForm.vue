@@ -73,7 +73,7 @@ function updateProfilePassword () {
       </ActionMessage>
 
       <CButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-        Save
+        Update
       </CButton>
     </template>
   </FormSection>

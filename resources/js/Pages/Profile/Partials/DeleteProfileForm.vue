@@ -1,6 +1,6 @@
 <script setup>
 import ActionMessage from '@/Components/Form/ActionMessage.vue'
-import CButton from '@/Components/Form/Button.vue'
+import CButton from '@/Components/Form/DangerButton.vue'
 import FormSection from '@/Components/Form/FormSection.vue'
 import CInput from '@/Components/Form/Input.vue'
 import CInputError from '@/Components/Form/InputError.vue'
@@ -58,7 +58,7 @@ function deleteProfile () {
       </ActionMessage>
 
       <CButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-        Save
+        Delete profile
       </CButton>
     </template>
   </FormSection>
