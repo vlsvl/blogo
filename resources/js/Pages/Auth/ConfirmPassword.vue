@@ -1,8 +1,8 @@
 <script setup>
-import BreezeButton from '@/Components/Form/Button.vue'
-import BreezeGuestLayout from '@/Layouts/Guest.vue'
-import BreezeInput from '@/Components/Form/Input.vue'
-import BreezeLabel from '@/Components/Form/Label.vue'
+import CButton from '@/Components/Form/Button.vue'
+import GuestLayout from '@/Layouts/Guest.vue'
+import CInput from '@/Components/Form/Input.vue'
+import CLabel from '@/Components/Form/Label.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
 
 const form = useForm({
@@ -17,22 +17,22 @@ const submit = () => {
 </script>
 
 <template>
-  <BreezeGuestLayout title="Confirm Password">
+  <GuestLayout title="Confirm Password">
     <div class="mb-4 text-sm text-gray-600">
       This is a secure area of the application. Please confirm your password before continuing.
     </div>
 
     <form @submit.prevent="submit">
       <div>
-        <BreezeLabel for="password" value="Password" />
-        <BreezeInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="current-password" autofocus />
+        <CLabel for="password" value="Password" />
+        <CInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="current-password" autofocus />
       </div>
 
       <div class="flex justify-end mt-4">
-        <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+        <CButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
           Confirm
-        </BreezeButton>
+        </CButton>
       </div>
     </form>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>

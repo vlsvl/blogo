@@ -1,8 +1,8 @@
 <script setup>
-import BreezeButton from '@/Components/Form/Button.vue'
-import BreezeGuestLayout from '@/Layouts/Guest.vue'
-import BreezeInput from '@/Components/Form/Input.vue'
-import BreezeLabel from '@/Components/Form/Label.vue'
+import CButton from '@/Components/Form/Button.vue'
+import GuestLayout from '@/Layouts/Guest.vue'
+import CInput from '@/Components/Form/Input.vue'
+import CLabel from '@/Components/Form/Label.vue'
 import { Head, useForm } from '@inertiajs/inertia-vue3'
 
 defineProps({
@@ -19,7 +19,7 @@ const submit = () => {
 </script>
 
 <template>
-  <BreezeGuestLayout>
+  <GuestLayout>
     <Head title="Forgot Password" />
 
     <div class="mb-4 text-sm text-gray-600">
@@ -32,15 +32,15 @@ const submit = () => {
 
     <form @submit.prevent="submit">
       <div>
-        <BreezeLabel for="email" value="Email" />
-        <BreezeInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autofocus autocomplete="username" />
+        <CLabel for="email" value="Email" />
+        <CInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autofocus autocomplete="username" />
       </div>
 
       <div class="flex items-center justify-end mt-4">
-        <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+        <CButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
           Email Password Reset Link
-        </BreezeButton>
+        </CButton>
       </div>
     </form>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>
