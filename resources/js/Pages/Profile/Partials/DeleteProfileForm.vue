@@ -8,11 +8,13 @@ import CLabel from '@/Components/Form/Label.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
 import { ref } from 'vue'
 
-const current_passwordInput = ref(null)
+const delete_profileInput = ref(null)
 
 const form = useForm({
   current_password: '',
 })
+
+const warning = ref(true)
 
 
 function deleteProfile () {
@@ -23,7 +25,7 @@ function deleteProfile () {
     onError: () => {
       if (form.errors.current_password) {
         form.reset('current_password')
-        current_passwordInput.value.focus()
+        delete_profileInput.value.focus()
       }
     },
   })
@@ -31,7 +33,7 @@ function deleteProfile () {
 </script>
 
 <template>
-  <FormSection warning="true" @submitted="deleteProfile">
+  <FormSection :warning="warning" @submitted="deleteProfile">
     <template #title>
       Delete profile
     </template>
@@ -45,7 +47,7 @@ function deleteProfile () {
     <template #form>
       <div class="col-span-6 sm:col-span-4">
         <CLabel for="current_password" value="Current Password" />
-        <CInput id="current_password" ref="current_passwordInput" v-model="form.current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
+        <CInput id="current_password" ref="delete_profileInput" v-model="form.current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
         <CInputError :message="form.errors.current_password" class="mt-2" />
       </div>
     </template>
