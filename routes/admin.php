@@ -20,6 +20,9 @@ Route::group([
         })->name('dashboard');
         // Profile
         Route::get('profile/{user}', [UserProfileController::class, 'index'])->name('profile');
+        Route::post('profile/update-info', [UserProfileController::class, 'updateCurrentUserInfo'])->name('profile.updateCurrentInfo');
+        Route::post('profile/update-password', [UserProfileController::class, 'updateCurrentUserPassword'])->name('profile.updateCurrentPassword');
+        Route::post('profile/update-password', [UserProfileController::class, 'deleteCurrentUserProfile'])->name('profile.deleteCurrentProfile');
         // Users
         Route::resource('users', UserController::class);
 });
