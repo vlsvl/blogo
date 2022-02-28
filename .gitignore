@@ -18,3 +18,5 @@ yarn-error.log
 .php-cs-fixer.cache
 # Phpstan and coverage html folder
 /tmp
+# Makefile
+nohup.out

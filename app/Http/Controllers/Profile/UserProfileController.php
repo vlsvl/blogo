@@ -55,7 +55,6 @@ class UserProfileController extends Controller
             'current_password' => 'required|current_password',
         ]);
         $request->user()->delete();
-        Auth::logout();
         return redirect('/');
     }
 }
