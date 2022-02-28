@@ -19,7 +19,7 @@ const hasActions = computed({
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto radius-lg bg-gray-200 rounded-lg p-4 md:p-6 mb-6 md:mb-9" :class="{'border-red-600 border-2': warning}">
+  <div class="max-w-7xl mx-auto radius-lg shadow-xl rounded-lg p-4 md:p-6 mb-6 md:mb-9" :class="{'border-red-600 border-2': warning}">
     <div class="md:grid md:grid-cols-3 md:gap-6">
       <section-title>
         <template #title><slot name="title" /></template>
@@ -37,7 +37,7 @@ const hasActions = computed({
             </div>
           </div>
 
-          <div v-if="hasActions" class="flex items-center justify-end px-4 py-3 bg-gray-200 text-right sm:px-6 border-gray-300 border-l-2 border-r-2 border-b-2 rounded-bl-md rounded-br-md">
+          <div v-if="hasActions" class="flex items-center justify-end px-4 py-3 text-right sm:px-6 border-gray-300 border-l-2 border-r-2 border-b-2 rounded-bl-md rounded-br-md">
             <slot name="actions" />
           </div>
         </form>
