@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Role::class);
+    }
     /**
      * Display a listing of the resource.
      *
