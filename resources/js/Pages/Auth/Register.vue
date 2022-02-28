@@ -1,8 +1,8 @@
 <script setup>
-import BreezeButton from '@/Components/Form/Button.vue'
-import BreezeGuestLayout from '@/Layouts/Guest.vue'
-import BreezeInput from '@/Components/Form/Input.vue'
-import BreezeLabel from '@/Components/Form/Label.vue'
+import CButton from '@/Components/Form/Button.vue'
+import GuestLayout from '@/Layouts/Guest.vue'
+import CInput from '@/Components/Form/Input.vue'
+import CLabel from '@/Components/Form/Label.vue'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
 
 const form = useForm({
@@ -21,28 +21,28 @@ const submit = () => {
 </script>
 
 <template>
-  <BreezeGuestLayout>
+  <GuestLayout>
     <Head title="Register" />
 
     <form @submit.prevent="submit">
       <div>
-        <BreezeLabel for="name" value="Name" />
-        <BreezeInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
+        <CLabel for="name" value="Name" />
+        <CInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
       </div>
 
       <div class="mt-4">
-        <BreezeLabel for="email" value="Email" />
-        <BreezeInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autocomplete="username" />
+        <CLabel for="email" value="Email" />
+        <CInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autocomplete="username" />
       </div>
 
       <div class="mt-4">
-        <BreezeLabel for="password" value="Password" />
-        <BreezeInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
+        <CLabel for="password" value="Password" />
+        <CInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
       </div>
 
       <div class="mt-4">
-        <BreezeLabel for="password_confirmation" value="Confirm Password" />
-        <BreezeInput id="password_confirmation" v-model="form.password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
+        <CLabel for="password_confirmation" value="Confirm Password" />
+        <CInput id="password_confirmation" v-model="form.password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
       </div>
 
       <div class="flex items-center justify-end mt-4">
@@ -50,10 +50,10 @@ const submit = () => {
           Already registered?
         </Link>
 
-        <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+        <CButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
           Register
-        </BreezeButton>
+        </CButton>
       </div>
     </form>
-  </BreezeGuestLayout>
+  </GuestLayout>
 </template>
