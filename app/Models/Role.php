@@ -10,6 +10,10 @@ class Role extends Model
 {
     use HasFactory;
 
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_EDITOR = 'editor';
+    public const ROLE_USER = 'user';
+
     protected $fillable = [
         'name', 'title', 'description'
     ];
