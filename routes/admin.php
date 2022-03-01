@@ -1,11 +1,11 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\UserProfileController;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', function () {
     return redirect(route('dashboard'), 301);
@@ -28,4 +28,6 @@ Route::group([
         Route::resource('users', UserController::class);
         // Roles
         Route::resource('roles', RoleController::class);
+        // Posts
+        Route::resource('posts', PostController::class);
 });

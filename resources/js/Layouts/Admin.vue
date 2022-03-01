@@ -6,33 +6,9 @@ import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import FlashMessages from '@/Components/FlashMessages.vue'
 import { useActive } from '@/Composable/route_active'
+import { adminLinks } from '@/params'
 
-const links = [
-  {
-    type: 'link',
-    route: 'dashboard',
-    title: 'dashboard',
-    icon: 'speedometer',
-  },
-  {
-    type: 'collapse',
-    title: 'Manage users',
-    collapsed: true,
-    icon: 'users',
-    pages: [
-      {
-        type: 'link',
-        route: 'users.index',
-        title: 'users',
-      },
-      {
-        type: 'link',
-        route: 'roles.index',
-        title: 'roles',
-      },
-    ],
-  },
-]
+const links = adminLinks
 
 defineProps({
   title: String,
