@@ -61,7 +61,7 @@ defineProps({
             text-left
           "
         >
-          <span class="inline-block lg:hidden text-gray-600 underline">{{ header.name }}:</span>
+          <span class="inline-block lg:hidden text-gray-600 mr-3">{{ header.name }}: </span>
           <span class="break-words">
             {{ row[header.name] }}
           </span>
