@@ -13,15 +13,35 @@ class PostController extends Controller
     {
         return Inertia::render('Public/Index', [
             'posts' => Post::with('user')
-                ->latestDesc()
+                ->latest()
                 ->paginate(10)
                 ->through(fn ($post) => [
                     'title' => $post->title,
                     'slug' => $post->slug,
                     'content' => $post->content,
                     'posted_at' => $post->posted_at->format('d.m.Y'),
-                    'user' => $post->user,
+                    'user' => [
+                        'id' => $post->user->id,
+                        'name' => $post->user->name,
+                    ],
                 ])
+        ]);
+    }
+
+    public function show(Request $request, Post $post)
+    {
+        return Inertia::render('Public/Show', [
+            'post' => [
+                'id' => $post->id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'content' => $post->content,
+                'posted_at' => $post->posted_at->format('d.m.Y'),
+                'user' => [
+                    'id' => $post->user->id,
+                    'name' => $post->user->name,
+                ],
+            ],
         ]);
     }
 }

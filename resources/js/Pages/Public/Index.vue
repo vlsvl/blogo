@@ -4,11 +4,9 @@ import Hero from '@/Components/Public/Hero'
 import PostsList from '@/Components/Public/PostsList.vue'
 import Pagination from '@/Components/Public/Pagination.vue'
 
-const props = defineProps({
+defineProps({
   posts: Object,
 })
-
-console.log(props.posts.data)
 </script>
 
 <template>

@@ -5,6 +5,8 @@ import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import FlashMessages from '@/Components/FlashMessages.vue'
+import { useActive } from '@/Composable/route_active'
+
 const links = [
   {
     type: 'link',
@@ -51,12 +53,7 @@ const isCollapsed = (links) => {
   return isCollapsed
 }
 
-const isActive = (link) => {
-  if (route().current(link.route.split('.')[0] + '*')) {
-    return true
-  }
-  return false
-}
+const { isActive } = useActive()
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
