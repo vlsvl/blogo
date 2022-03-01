@@ -5,32 +5,10 @@ import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import FlashMessages from '@/Components/FlashMessages.vue'
-const links = [
-  {
-    type: 'link',
-    route: 'dashboard',
-    title: 'dashboard',
-    icon: 'speedometer',
-  },
-  {
-    type: 'collapse',
-    title: 'Manage users',
-    collapsed: true,
-    icon: 'users',
-    pages: [
-      {
-        type: 'link',
-        route: 'users.index',
-        title: 'users',
-      },
-      {
-        type: 'link',
-        route: 'roles.index',
-        title: 'roles',
-      },
-    ],
-  },
-]
+import { useActive } from '@/Composable/route_active'
+import { adminLinks } from '@/params'
+
+const links = adminLinks
 
 defineProps({
   title: String,
@@ -51,12 +29,7 @@ const isCollapsed = (links) => {
   return isCollapsed
 }
 
-const isActive = (link) => {
-  if (route().current(link.route.split('.')[0] + '*')) {
-    return true
-  }
-  return false
-}
+const { isActive } = useActive()
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value

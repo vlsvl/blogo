@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
+import { useActive } from '@/Composable/route_active'
 
 defineProps({
   title: {
@@ -13,7 +14,6 @@ const navLinks = [
   {
     route: 'home',
     title: 'Home',
-    active: true,
   },
   {
     route: 'category',
@@ -24,10 +24,13 @@ const navLinks = [
     title: 'About',
   },
 ]
+
+const { isActive } = useActive()
+
 </script>
 
 <template>
-  <div class="min-h-screen w-full flex flex-col">
+  <div class="min-h-screen w-full flex flex-col justify-between">
     <Head :title="title" />
     <!-- Header start -->
     <nav
@@ -41,9 +44,9 @@ const navLinks = [
         <div
           v-for="(link,id) in navLinks" :key="id"
           class="link"
-          :class="{ active: link.active }"
+          :class="{ active: isActive(link) }"
         >
-          <Link :href="link.route">{{ link.title }}</Link>
+          <Link :href="route(link.route)">{{ link.title }}</Link>
         </div>
       </div>
       <!-- End Nav Bar -->
@@ -54,7 +57,7 @@ const navLinks = [
     <!-- Header end -->
     <slot />
     <!-- Footer start -->
-    <footer class="bg-gradient-to-b from-white to-blue-300">
+    <footer class="mt-24 bg-gradient-to-b from-white to-blue-300">
       <div class="container mx-auto px-8">
         <div class="w-full flex flex-col md:flex-row py-6 justify-start">
           <div class="flex-1 mb-6 text-black">
@@ -74,9 +77,9 @@ const navLinks = [
           </div>
           <div class="flex-1">
             <ul class="list-reset mb-6 flex flex-row">
-              <li v-for="(link,id) in navLinks" :key="id" class="mt-2 inline-block mr-2 px-4 md:block md:mr-0">
+              <li v-for="(link, id) in navLinks" :key="id" class="mt-2 inline-block mr-2 px-4 md:block md:mr-0">
                 <Link
-                  href="#"
+                  :href="route(link.route)"
                   class="
                     text-xl
                     hover:underline

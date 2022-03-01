@@ -25,6 +25,7 @@ class UserController extends Controller
             'Admin/Users/Index', [
             'filters' => $request->all('search', 'role'),
             'users' => User::orderBy('id', 'asc')
+                ->with('role')
                 ->filter($request->only('search'))
                 ->paginate(10)
                 ->withQueryString()

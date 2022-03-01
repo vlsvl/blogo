@@ -39,6 +39,6 @@ const adminLinks = [
   },
 ]
 
-export default {
+export {
   adminLinks,
 }

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\Public\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,15 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/{post}', [PostController::class, 'show'])->name('public.post.show');
+// Temporary for links in navbar
+Route::get('category', function () {
+    return "Category page";
+})->name('category');
+Route::get('about', function () {
+    return "About page";
+})->name('about');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

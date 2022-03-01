@@ -1,11 +1,18 @@
 includes:
-    - phpstan-baseline.neon
+    - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
-    level: 5
+
     paths:
-        - src
-        - config
-        - database
-    tmpDir: tmp/phpstan
+        - app
+
+    # The level 9 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '#PHPDoc tag @var#'
+
+    excludePaths:
+        - ./*/*/FileToBeExcluded.php
+
     checkMissingIterableValueType: false
