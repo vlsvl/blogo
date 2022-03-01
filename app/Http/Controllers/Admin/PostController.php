@@ -39,7 +39,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Posts/CreateUpdate');
     }
 
     /**
@@ -72,7 +72,17 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return Inertia::render(
+            'Admin/Posts/CreateUpdate', [
+                'post' => [
+                    'id' => $post->id,
+                    'title' => $post->title,
+                    'slug' => $post->title,
+                    'content' => $post->content,
+                    'user' => $post->user->name,
+                ]
+            ]
+        );
     }
 
     /**

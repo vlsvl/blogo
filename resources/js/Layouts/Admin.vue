@@ -14,7 +14,7 @@ defineProps({
   title: String,
 })
 
-const sidebarOpen = ref(true)
+const sidebarOpen = ref(false)
 
 const isCollapsed = (links) => {
   let isCollapsed = true
@@ -61,7 +61,7 @@ const toggleSidebar = () => {
       ease-in
       duration-200
     "
-      :class="{ 'hidden': !sidebarOpen }"
+      :class="{ 'hidden lg:block': !sidebarOpen }"
     >
       <div
         class="
@@ -122,7 +122,7 @@ const toggleSidebar = () => {
           class="w-full mx-auto items-center flex justify-between md:flex-nowrap flex-wrap"
         >
           <button
-            class="mr-2 relative w-10 h-10 py-2 text-red-600 focus:outline-none focus:shadow-outline lg:hidden"
+            class="mr-2 relative w-10 h-10 py-2 text-white focus:outline-none focus:shadow-outline lg:hidden"
             aria-expanded="true" aria-controls="sidebar"
             @click.prevent="toggleSidebar"
           >
