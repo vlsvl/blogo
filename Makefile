@@ -53,13 +53,13 @@ phpmd: ## Run PHPMD
 	$(EXEC_PHP) vendor/bin/phpmd app text ./phpmd.xml.dist
 
 psalm: ## Run psalm with info
-	vendor/bin/psalm --show-info=true
+	$(PHP) vendor/bin/psalm --show-info=true
 
 psalm-fix: ## Run psalm with auto fix
-	vendor/bin/psalm --alter --issues=MissingReturnType --dry-run
+	$(PHP) vendor/bin/psalm --alter --issues=MissingReturnType --dry-run
 
 phpstan: ## Run analyze with phpstan
-	vendor/bin/phpstan analyse ./app
+	$(PHP) vendor/bin/phpstan analyse ./app
 
 ##
 ##Helpers
