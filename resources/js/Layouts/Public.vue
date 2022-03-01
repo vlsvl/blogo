@@ -54,7 +54,7 @@ const navLinks = [
     <!-- Header end -->
     <slot />
     <!-- Footer start -->
-    <footer class="bg-gradient-to-b from-white to-blue-300">
+    <footer class="mt-24 bg-gradient-to-b from-white to-blue-300">
       <div class="container mx-auto px-8">
         <div class="w-full flex flex-col md:flex-row py-6 justify-start">
           <div class="flex-1 mb-6 text-black">
