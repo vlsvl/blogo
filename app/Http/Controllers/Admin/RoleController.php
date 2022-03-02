@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(Role::class);
@@ -22,10 +21,12 @@ class RoleController extends Controller
     public function index()
     {
         return Inertia::render(
-            'Admin/Roles/Index', [
+            'Admin/Roles/Index',
+            [
             'roles' => Role::orderBy('id', 'asc')
                 ->paginate(10)
-                ->through(fn ($role) => [
+                ->through(
+                    fn ($role) => [
                         'id' => $role->id,
                         'name' => $role->name,
                         'title' => $role->title,

@@ -70,8 +70,19 @@ link-storage: ## Create link for storage folder
 opt-clear: ## Clear all optimize
 	${ARTISAN} optimize:clear
 
+cache-clear: ## Clear cache
+	${ARTISAN} cache:clear
+
+clear: opt-clear cache-clear ## Clear all
+
 php: ## Start application container
 	${PHP} /bin/sh
+
+tinker: ## Run tinker in container
+	${ARTISAN} tinker
+
+feature: ## Run command for test some feature. Sometimes better use command then tinker (Command added to gitignore)
+	${ARTISAN} feature
 
 
 ##

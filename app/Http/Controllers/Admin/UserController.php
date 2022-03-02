@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(User::class, 'user');
@@ -22,14 +21,16 @@ class UserController extends Controller
     public function index(Request $request)
     {
         return Inertia::render(
-            'Admin/Users/Index', [
+            'Admin/Users/Index',
+            [
             'filters' => $request->all('search', 'role'),
             'users' => User::orderBy('id', 'asc')
                 ->with('role')
                 ->filter($request->only('search'))
                 ->paginate(10)
                 ->withQueryString()
-                ->through(fn ($user) => [
+                ->through(
+                    fn ($user) => [
                         'id' => $user->id,
                         'name' => $user->name,
                         'email' => $user->email,

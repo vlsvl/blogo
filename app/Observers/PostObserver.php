@@ -15,7 +15,7 @@ class PostObserver
      */
     public function creating(Post $post)
     {
-        if(empty($post->slug)) {
+        if (empty($post->slug)) {
             $post->slug = Str::slug($post->title);
         }
     }
