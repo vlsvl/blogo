@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { Link } from '@inertiajs/inertia-vue3'
+
+const props = defineProps({
   headers: Array,
   rows: Array,
   actions: {
@@ -7,6 +9,8 @@ defineProps({
     default: () => [],
   },
 })
+
+console.log(props.actions)
 </script>
 
 <template>
@@ -65,6 +69,15 @@ defineProps({
           <span class="break-words">
             {{ row[header.name] }}
           </span>
+        </td>
+        <td v-if="actions?.length !== 0" class="py-2">
+          <Link
+            v-for="(action,aid) in actions"
+            :key="aid" class="btn btn-primary"
+            :href="route(action.route, row[action.param])"
+          >
+            {{ __(action.title) }}
+          </Link>
         </td>
       </tr>
     </tbody>

@@ -34,6 +34,12 @@ const headers = [
   },
 ]
 
+const actions = [{
+  route: 'users.show',
+  title: 'View',
+  param: 'id',
+}]
+
 function filter() {
   form.get(route('users.index'))
 }
@@ -47,6 +53,7 @@ function filter() {
     <IndexPage
       :headers="headers"
       :content="users"
+      :actions="actions"
     >
       <template #filter>
         <form action="route('users.index')" method="post" @submit.prevent="filter">

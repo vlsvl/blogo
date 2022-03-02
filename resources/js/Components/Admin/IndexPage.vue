@@ -5,6 +5,10 @@ import CPagination from '@/Components/Admin/Pagination.vue'
 defineProps({
   headers: Array,
   content: Object,
+  actions: {
+    type: Array,
+    default: () => [],
+  },
 })
 
 const hasButtons = computed({
@@ -37,7 +41,7 @@ const hasButtons = computed({
       </div>
       <div class="block w-full overflow-x-auto">
         <!-- Projects table -->
-        <CTable :headers="headers" :rows="content.data" />
+        <CTable :headers="headers" :rows="content.data" :actions="actions" />
         <div class="p-3">
           <CPagination :links="content.links" />
         </div>
