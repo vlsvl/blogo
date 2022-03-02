@@ -7,3 +7,25 @@
     @apply text-5xl text-gray-700 font-bold;
   }
 }
+
+@layer components {
+  .btn {
+    @apply rounded-md px-4 py-2 text-white text-sm duration-300 uppercase font-bold;
+  }
+
+  .btn-default {
+    @apply bg-gray-500 hover:bg-gray-600;
+  }
+
+  .btn-primary {
+    @apply bg-main-blue hover:bg-main-darkBlue;
+  }
+
+  .btn-success {
+    @apply bg-green-500 hover:bg-green-600;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600;
+  }
+}

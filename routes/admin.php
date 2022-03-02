@@ -28,12 +28,19 @@ Route::group([
             return Inertia::render('Dashboard');
         })->name('dashboard');
         // Profile
-        Route::get('profile/{user}', [UserProfileController::class, 'index'])->name('profile');
-        Route::post('profile/update-info', [UserProfileController::class, 'updateCurrentUserInfo'])->name('profile.updateCurrentInfo');
-        Route::post('profile/update-password', [UserProfileController::class, 'updateCurrentUserPassword'])->name('profile.updateCurrentPassword');
-        Route::post('profile/delete-profile', [UserProfileController::class, 'deleteCurrentUserProfile'])->name('profile.deleteCurrentProfile');
+        Route::get('profile/{user}', [UserProfileController::class, 'index'])
+            ->name('profile');
+        Route::post('profile/update-info', [UserProfileController::class, 'updateCurrentUserInfo'])
+            ->name('profile.updateCurrentInfo');
+        Route::post('profile/update-password', [UserProfileController::class, 'updateCurrentUserPassword'])
+            ->name('profile.updateCurrentPassword');
+        Route::post('profile/delete-profile', [UserProfileController::class, 'deleteCurrentUserProfile'])
+            ->name('profile.deleteCurrentProfile');
         // Users
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class)
+            ->only(['index', 'show', 'destroy']);
+        Route::get('users/auth-as/{user}', [UserController::class, 'authAs'])
+            ->name('users.auth_as');
         // Roles
         Route::resource('roles', RoleController::class);
         // Posts
