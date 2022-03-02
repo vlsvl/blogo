@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-import { Head } from '@inertiajs/inertia-vue3'
+import {ref} from 'vue'
+import {Head, Link} from '@inertiajs/inertia-vue3'
 import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import FlashMessages from '@/Components/FlashMessages.vue'
-import { useActive } from '@/Composable/route_active'
-import { adminLinks } from '@/params'
+import {useActive} from '@/Composable/route_active'
+import {adminLinks} from '@/params'
 
 const links = adminLinks
 
@@ -29,7 +29,7 @@ const isCollapsed = (links) => {
   return isCollapsed
 }
 
-const { isActive } = useActive()
+const {isActive} = useActive()
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
@@ -121,46 +121,48 @@ const toggleSidebar = () => {
         <div
           class="w-full mx-auto items-center flex justify-between md:flex-nowrap flex-wrap"
         >
-          <button
-            class="mr-2 relative w-10 h-10 py-2 text-white focus:outline-none focus:shadow-outline lg:hidden"
-            aria-expanded="true" aria-controls="sidebar"
-            @click.prevent="toggleSidebar"
-          >
-            <svg
-              :class="{'hidden': sidebarOpen}"
-              class="absolute inset-0 mt-2 ml-2 w-6 h-6"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+          <div class="flex items-center">
+            <button
+              class="mr-2 relative w-10 h-10 py-2 text-white focus:outline-none focus:shadow-outline lg:hidden"
+              aria-expanded="true" aria-controls="sidebar"
+              @click.prevent="toggleSidebar"
             >
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-            <svg
-              :class="{'hidden': !sidebarOpen}"
-              class="absolute inset-0 mt-2 ml-2 w-6 h-6"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              <svg
+                :class="{'hidden': sidebarOpen}"
+                class="absolute inset-0 mt-2 ml-2 w-6 h-6"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+              <svg
+                :class="{'hidden': !sidebarOpen}"
+                class="absolute inset-0 mt-2 ml-2 w-6 h-6"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+            <!-- Brand -->
+            <Link
+              class="text-white text-xl inline-block font-semibold"
+              :href="route('home')"
             >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-          <!-- Brand -->
-          <a
-            class="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-            href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/dashboard"
-          >
-            {{ title }}
-          </a>
+              BLogo
+            </Link>
+          </div>
           <!-- Form -->
           <form
             class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
