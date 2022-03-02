@@ -31,7 +31,7 @@ const { isActive } = useActive()
 
 <template>
   <div class="min-h-screen w-full flex flex-col justify-between">
-    <Head :title="title" />
+    <Head :title="__(title)" />
     <!-- Header start -->
     <nav
       class="w-full mx-auto flex justify-between items-center border-t-8 border-main-blue"
@@ -46,7 +46,7 @@ const { isActive } = useActive()
           class="link"
           :class="{ active: isActive(link) }"
         >
-          <Link :href="route(link.route)">{{ link.title }}</Link>
+          <Link :href="route(link.route)">{{ __(link.title) }}</Link>
         </div>
       </div>
       <!-- End Nav Bar -->
@@ -87,7 +87,7 @@ const { isActive } = useActive()
                     hover:text-main-blue
                   "
                 >
-                  {{ link.title }}
+                  {{ __(link.title) }}
                 </Link>
               </li>
             </ul>

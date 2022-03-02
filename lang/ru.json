@@ -1,0 +1,12 @@
+{
+    "The :attribute must contain at least one letter.": "Поле :attribute должно содержать не менее одного символа.",
+    "The :attribute must contain at least one number.": "Поле :attribute должно содержать не менее одного числа.",
+    "The :attribute must contain at least one symbol.": "Поле :attribute должно содержать хотя бы один символ.",
+    "The :attribute must contain at least one uppercase and one lowercase letter.": "Поле :attribute должно содержать строчные и заглавные символы.",
+    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "Переданный :attribute был скомпрометирован. Пожалуйста выберите другой :attribute.",
+    "Dashboard": "Панель управления",
+    "Profile": "Профиль пользователя",
+    "Log Out": "Выход",
+    "Login": "Вход",
+    "Register": "Регистрация"
+}

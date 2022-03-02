@@ -35,5 +35,6 @@ module.exports = {
   },
   globals: {
     route: 'readonly',
+    __: 'readonly',
   },
 }

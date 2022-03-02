@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <div class="min-h-screen relative bg-gradient-to-b from-white to-blue-300 overflow-hidden">
-    <Head title="title" />
+    <Head :title="__(title)" />
     <div class="flex flex-col justify-center items-center pt-24 relative z-20">
       <div>
         <Link href="/">
@@ -20,7 +20,7 @@ defineProps({
       <FlashMessages class="mb-4" />
 
       <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white opacity-80 shadow-xl overflow-hidden sm:rounded-xl">
-        <h3 class="text-3xl text-center mb-6">{{ title }}</h3>
+        <h3 class="text-3xl text-center mb-6">{{ __(title) }}</h3>
         <slot />
       </div>
     </div>

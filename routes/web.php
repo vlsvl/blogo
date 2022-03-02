@@ -17,7 +17,6 @@ use App\Http\Controllers\Public\PostController;
 */
 
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/{post}', [PostController::class, 'show'])->name('public.post.show');
 // Temporary for links in navbar
 Route::get('category', function () {
     return "Category page";
@@ -28,3 +27,6 @@ Route::get('about', function () {
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
+
+// Get post pages for other routes
+Route::get('/{post}', [PostController::class, 'show'])->name('public.post.show');

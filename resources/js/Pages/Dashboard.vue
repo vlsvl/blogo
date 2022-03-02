@@ -3,10 +3,10 @@ import AdminLayout from '@/Layouts/Admin.vue'
 </script>
 
 <template>
-  <AdminLayout :title="Dashboard">
+  <AdminLayout title="Dashboard">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Dashboard
+        {{ __("Dashboard") }}
       </h2>
     </template>
 

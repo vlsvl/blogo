@@ -57,29 +57,29 @@ export default {
         <!-- <div class="block px-4 py-2 text-xs text-gray-400">Manage Account</div> -->
 
         <dropdown-link v-if="signedIn" :href="route('profile', $page.props.auth.user?.id)">
-          Profile
+          {{ __("Profile") }}
         </dropdown-link>
 
         <div class="border-t border-gray-100" />
         <!-- Authentication -->
         <dropdown-link v-if="signedIn" :href="route('dashboard')">
-          Dashboard
+          {{ __("Dashboard") }}
         </dropdown-link>
 
         <div v-else>
           <dropdown-link v-if="canLogin" :href="route('login')">
-            Login
+            {{ __("Login") }}
           </dropdown-link>
 
           <dropdown-link v-if="canRegister" :href="route('register')">
-            Register
+            {{ __("Register") }}
           </dropdown-link>
         </div>
 
         <div v-if="signedIn" class="border-t border-gray-100" />
 
         <!-- Authentication -->
-        <dropdown-link v-if="signedIn" :href="route('logout')" method="POST" as="button"> Log Out </dropdown-link>
+        <dropdown-link v-if="signedIn" :href="route('logout')" method="POST" as="button"> {{ __("Log Out") }} </dropdown-link>
       </template>
     </dropdown>
   </div>

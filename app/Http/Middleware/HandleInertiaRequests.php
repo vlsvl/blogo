@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\TranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
@@ -40,6 +41,9 @@ class HandleInertiaRequests extends Middleware
                 'canLogin' => Route::has('login'),
                 'canRegister' => Route::has('register'),
             ],
+            'locale' => fn() => app()->getLocale(),
+            'translation' => fn() => app(TranslationService::class)
+                    ->getTranslations(app()->getLocale()),
         ]);
     }
 }

@@ -12,16 +12,18 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function index()
+    public function index(): \Inertia\Response
     {
         return Inertia::render(
-            'Admin/Posts/Index', [
+            'Admin/Posts/Index',
+            [
             'posts' => Post::orderBy('id', 'asc')
                 ->with('user')
                 ->paginate(10)
-                ->through(fn ($post) => [
+                ->through(
+                    fn ($post) => [
                         'id' => $post->id,
                         'title' => $post->title,
                         'slug' => $post->title,
@@ -35,9 +37,9 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function create()
+    public function create(): \Inertia\Response
     {
         return Inertia::render('Admin/Posts/CreateUpdate');
     }
@@ -68,12 +70,13 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function edit(Post $post)
+    public function edit(Post $post): \Inertia\Response
     {
         return Inertia::render(
-            'Admin/Posts/CreateUpdate', [
+            'Admin/Posts/CreateUpdate',
+            [
                 'post' => [
                     'id' => $post->id,
                     'title' => $post->title,
