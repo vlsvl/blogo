@@ -67,13 +67,8 @@ phpstan: ## Run analyze with phpstan
 link-storage: ## Create link for storage folder
 	${ARTISAN} storage:link
 
-opt-clear: ## Clear all optimize
+clear: ## Clear all optimize
 	${ARTISAN} optimize:clear
-
-cache-clear: ## Clear cache
-	${ARTISAN} cache:clear
-
-clear: opt-clear cache-clear ## Clear all
 
 php: ## Start application container
 	${PHP} /bin/sh

@@ -5,6 +5,7 @@ import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import FlashMessages from '@/Components/FlashMessages.vue'
+import LocaleSwitch from '@/Components/Admin/LocaleSwitch'
 import {useActive} from '@/Composable/route_active'
 import {adminLinks} from '@/params'
 
@@ -182,7 +183,8 @@ const toggleSidebar = () => {
           </form>
           <!-- User -->
           <div class="flex-col md:flex-row list-none items-center flex">
-            <user-dropdown-menu class="text-white" />
+            <LocaleSwitch class="text-white mr-3" />
+            <UserDropdownMenu class="text-white" />
           </div>
         </div>
       </nav>

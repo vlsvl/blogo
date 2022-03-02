@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method Builder filter(Builder $query, array $filter)
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
@@ -62,10 +65,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role->name === Role::ROLE_EDITOR;
     }
 
-    public function scopeFilter(Builder $query, array $filter): void
+    /**
+     * @param Builder $query
+     * @param array $filter
+     * @return void
+     */
+    public function scopeFilter(Builder $query, array $filter)
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {
-            $query->where('name', 'like', "%{$search}%");
+            $query->where('name', 'like', "%$search%");
         });
     }
 }

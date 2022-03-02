@@ -6,6 +6,14 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\UserProfileController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
+Route::get('locale/{locale}', function ($locale) {
+    if (in_array($locale, array_keys(config('blogo.locales')))) {
+        session()->put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('locale');
 
 Route::get('/admin', function () {
     return redirect(route('dashboard'), 301);

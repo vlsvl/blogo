@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
                 'canRegister' => Route::has('register'),
             ],
             'locale' => fn() => app()->getLocale(),
+            'locales' => fn() => config('blogo.locales'),
             'translation' => fn() => app(TranslationService::class)
                     ->getTranslations(app()->getLocale()),
         ]);
