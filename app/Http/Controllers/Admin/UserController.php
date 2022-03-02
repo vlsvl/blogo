@@ -16,9 +16,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): \Inertia\Response
     {
         return Inertia::render(
             'Admin/Users/Index',
