@@ -29,16 +29,19 @@ migrate: ## Run migrate command in php container
 ##Tests && QA
 ##-------------
 test: ## Run tests
-	php artisan test
+	$(ARTISAN) test
 
 coverage: ## run tests with coverage
-	php artisan test --coverage
+	$(ARTISAN) test --coverage
+
+phpunit: ## Run phpunit
+	$(PHP) vendor/bin/phpunit
 
 coverage-text: ## Test coverage
-	$(EXEC_PHP) vendor/bin/phpunit --coverage-text
+	$(PHP) vendor/bin/phpunit --coverage-text
 
 coverage-html: ## Tests coverage (xdebug need in coverage mode)
-	${PHP} vendor/bin/phpunit --coverage-html tmp/coverage
+	$(PHP) vendor/bin/phpunit --coverage-html tmp/coverage
 
 phpcs: ## Run phpcode_sniffer
 	$(EXEC_PHP) vendor/bin/phpcs ./app
