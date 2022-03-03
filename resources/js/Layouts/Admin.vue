@@ -9,8 +9,6 @@ import LocaleSwitch from '@/Components/Admin/LocaleSwitch'
 import {useActive} from '@/Composable/route_active'
 import {adminLinks} from '@/params'
 
-const links = adminLinks
-
 defineProps({
   title: String,
 })
@@ -72,8 +70,8 @@ const toggleSidebar = () => {
         w-full
       "
       >
-        <ul v-if="links.length" class="md:min-w-full flex flex-col list-none">
-          <li v-for="(link, id) in links" :key="id" class="items-center">
+        <ul v-if="adminLinks.length" class="md:min-w-full flex flex-col list-none">
+          <li v-for="(link, id) in adminLinks" :key="id" class="items-center">
             <!-- Simple link -->
             <icon-link
               v-if="link.type === 'link'"
@@ -203,7 +201,7 @@ const toggleSidebar = () => {
         </header>
         <!-- End Page Heading -->
         <div class="my-4">
-          <flash-messages />
+          <FlashMessages />
         </div>
         <!-- Page Content -->
         <slot />

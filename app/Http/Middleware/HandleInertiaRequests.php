@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Services\TranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -41,6 +42,13 @@ class HandleInertiaRequests extends Middleware
                 'canLogin' => Route::has('login'),
                 'canRegister' => Route::has('register'),
             ],
+            'flash' => function () {
+                return [
+                    'warning' => Session::get('warning'),
+                    'success' => Session::get('success'),
+                    'error' => Session::get('error'),
+                ];
+            },
             'locale' => fn() => app()->getLocale(),
             'locales' => fn() => config('blogo.locales'),
             'translation' => fn() => app(TranslationService::class)

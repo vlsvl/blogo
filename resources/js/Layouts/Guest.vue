@@ -16,8 +16,9 @@ defineProps({
           <h2 class="text-4xl text-main-blue">BLogo</h2>
         </Link>
       </div>
-
-      <FlashMessages class="mb-4" />
+      <div class="w-full sm:max-w-md mt-6">
+        <FlashMessages />
+      </div>
 
       <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white opacity-80 shadow-xl overflow-hidden sm:rounded-xl">
         <h3 class="text-3xl text-center mb-6">{{ __(title) }}</h3>
