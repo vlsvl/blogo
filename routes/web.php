@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Profile\UserProfileController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\Public\PostController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +29,5 @@ Route::get('about', function () {
 })->name('about');
 
 require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
-
 // Get post pages for other routes
 Route::get('/{post}', [PostController::class, 'show'])->name('public.post.show');

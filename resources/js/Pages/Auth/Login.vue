@@ -3,6 +3,7 @@ import CButton from '@/Components/Form/Button.vue'
 import CCheckbox from '@/Components/Form/Checkbox.vue'
 import GuestLayout from '@/Layouts/Guest.vue'
 import CInput from '@/Components/Form/Input.vue'
+import CInputError from '@/Components/Form/InputError.vue'
 import CLabel from '@/Components/Form/Label.vue'
 import { Link, useForm } from '@inertiajs/inertia-vue3'
 
@@ -34,11 +35,13 @@ const submit = () => {
       <div>
         <CLabel for="email" value="Email" />
         <CInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autofocus autocomplete="username" />
+        <CInputError :message="form.errors.email" class="mt-2" />
       </div>
 
       <div class="mt-4">
         <CLabel for="password" value="Password" />
         <CInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="current-password" />
+        <CInputError :message="form.errors.password" class="mt-2" />
       </div>
 
       <div class="block mt-4">

@@ -2,6 +2,7 @@
 import CButton from '@/Components/Form/Button.vue'
 import GuestLayout from '@/Layouts/Guest.vue'
 import CInput from '@/Components/Form/Input.vue'
+import CInputError from '@/Components/Form/InputError.vue'
 import CLabel from '@/Components/Form/Label.vue'
 import { Head, useForm } from '@inertiajs/inertia-vue3'
 
@@ -34,6 +35,7 @@ const submit = () => {
       <div>
         <CLabel for="email" value="Email" />
         <CInput id="email" v-model="form.email" type="email" class="mt-1 block w-full" required autofocus autocomplete="username" />
+        <CInputError :message="form.errors.email" class="mt-2" />
       </div>
 
       <div class="flex items-center justify-end mt-4">

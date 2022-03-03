@@ -90,7 +90,8 @@ class UserController extends Controller
     public function authAs(User $user): \Illuminate\Http\RedirectResponse
     {
         Auth::login($user);
-        return redirect()->back()->with('success', "You authorized as $user->name.");
+        return redirect()->route('users.index')
+            ->with('success', "You authorized as $user->name.");
     }
 
     /**
@@ -102,6 +103,7 @@ class UserController extends Controller
     public function destroy(User $user): \Illuminate\Http\RedirectResponse
     {
         $user->delete();
-        return redirect()->back()->with('warning', "User $user->name was deleted!");
+        return redirect()->route('users.index')
+            ->with('error', "User $user->name was deleted!");
     }
 }

@@ -2,6 +2,7 @@
 import CButton from '@/Components/Form/Button.vue'
 import GuestLayout from '@/Layouts/Guest.vue'
 import CInput from '@/Components/Form/Input.vue'
+import CInputError from '@/Components/Form/InputError.vue'
 import CLabel from '@/Components/Form/Label.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
 
@@ -26,6 +27,7 @@ const submit = () => {
       <div>
         <CLabel for="password" value="Password" />
         <CInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="current-password" autofocus />
+        <CInputError :message="form.errors.password" class="mt-2" />
       </div>
 
       <div class="flex justify-end mt-4">
