@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -15,18 +16,15 @@ Route::get('locale/{locale}', function ($locale) {
     return redirect()->back();
 })->name('locale');
 
-Route::get('/admin', function () {
+Route::get('/', function () {
     return redirect(route('dashboard'), 301);
 });
 
 Route::group([
-        'prefix' => 'admin',
         'middleware' => ['auth', 'verified']
     ], function () {
         // Dashboard
-        Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', DashboardController::class)->name('dashboard');
         // Profile
         Route::get('profile/{user}', [UserProfileController::class, 'index'])
             ->name('profile');
