@@ -3022,13 +3022,13 @@ select {
   margin-left: auto;
   margin-right: auto;
 }
-.my-6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -3066,9 +3066,6 @@ select {
 .mb-8 {
   margin-bottom: 2rem;
 }
-.mt-3 {
-  margin-top: 0.75rem;
-}
 .mr-3 {
   margin-right: 0.75rem;
 }
@@ -3077,9 +3074,6 @@ select {
 }
 .mb-6 {
   margin-bottom: 1.5rem;
-}
-.mb-4 {
-  margin-bottom: 1rem;
 }
 .mt-6 {
   margin-top: 1.5rem;
@@ -3110,6 +3104,9 @@ select {
 }
 .mb-16 {
   margin-bottom: 4rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
 }
 .mr-4 {
   margin-right: 1rem;
@@ -3219,8 +3216,8 @@ select {
 .max-w-6xl {
   max-width: 72rem;
 }
-.max-w-3xl {
-  max-width: 48rem;
+.max-w-full {
+  max-width: 100%;
 }
 .max-w-7xl {
   max-width: 80rem;
@@ -3230,9 +3227,6 @@ select {
 }
 .max-w-4xl {
   max-width: 56rem;
-}
-.max-w-full {
-  max-width: 100%;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -3287,12 +3281,6 @@ select {
 }
 .resize {
   resize: both;
-}
-.list-inside {
-  list-style-position: inside;
-}
-.list-disc {
-  list-style-type: disc;
 }
 .list-none {
   list-style-type: none;
@@ -3358,9 +3346,6 @@ select {
 .break-words {
   overflow-wrap: break-word;
 }
-.break-all {
-  word-break: break-all;
-}
 .rounded-md {
   border-radius: 0.375rem;
 }
@@ -3424,9 +3409,6 @@ select {
 .border-t-8 {
   border-top-width: 8px;
 }
-.border-b {
-  border-bottom-width: 1px;
-}
 .border-l-0 {
   border-left-width: 0px;
 }
@@ -3444,6 +3426,9 @@ select {
 }
 .border-r-2 {
   border-right-width: 2px;
+}
+.border-b {
+  border-bottom-width: 1px;
 }
 .border-solid {
   border-style: solid;
@@ -3506,10 +3491,6 @@ select {
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-.bg-red-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 .bg-gray-500 {
   --tw-bg-opacity: 1;
@@ -3617,13 +3598,13 @@ select {
   padding-left: 2rem;
   padding-right: 2rem;
 }
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .py-24 {
   padding-top: 6rem;
@@ -4146,12 +4127,12 @@ select {
     width: 100%;
   }
 
-  .sm\:max-w-md {
-    max-width: 28rem;
-  }
-
   .sm\:max-w-sm {
     max-width: 24rem;
+  }
+
+  .sm\:max-w-md {
+    max-width: 28rem;
   }
 
   .sm\:max-w-lg {

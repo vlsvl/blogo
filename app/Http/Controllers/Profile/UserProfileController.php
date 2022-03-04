@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Models\User;
 use Inertia\Inertia;
+use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,9 +17,9 @@ class UserProfileController extends Controller
      * Mark the authenticated user's email address as verified.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Inertia
+     * @return \Inertia\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): Inertia\Response
     {
         return Inertia::render('Profile/Index');
     }

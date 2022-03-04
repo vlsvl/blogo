@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use UserRole;
 
     /**
      * The attributes that are mass assignable.
@@ -49,21 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role->name === Role::ROLE_ADMIN;
-    }
-
-    public function isEditor(): bool
-    {
-        return $this->role->name === Role::ROLE_EDITOR;
-    }
 
     /**
      * @param Builder $query
