@@ -180,7 +180,7 @@ const toggleSidebar = () => {
             </div>
           </form>
           <!-- User -->
-          <div class="flex-col md:flex-row list-none items-center flex">
+          <div class="flex list-none items-center">
             <LocaleSwitch class="text-white mr-3" />
             <UserDropdownMenu class="text-white" />
           </div>
