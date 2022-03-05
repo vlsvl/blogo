@@ -29,7 +29,7 @@ const hasActions = computed({
       <div class="mt-5 md:mt-0 md:col-span-2">
         <form @submit.prevent="$emit('submitted')">
           <div
-            class="px-4 py-5 sm:p-6 border-gray-300 border-t-2 border-l-2 border-r-2"
+            class="p-o md:px-4 md:py-5 md:border-gray-100 md:border-t-2 md:border-l-2 md:border-r-2"
             :class="hasActions ? 'rounded-tl-md rounded-tr-md' : 'rounded-md border-b-2'"
           >
             <div class="grid gap-6">
@@ -37,7 +37,7 @@ const hasActions = computed({
             </div>
           </div>
 
-          <div v-if="hasActions" class="flex items-center justify-end px-4 py-3 text-right sm:px-6 border-gray-300 border-l-2 border-r-2 border-b-2 rounded-bl-md rounded-br-md">
+          <div v-if="hasActions" class="flex items-center justify-end px-0 md:px-4 py-3 text-right md:border-gray-100 md:border-l-2 md:border-r-2 md:border-b-2 rounded-bl-md rounded-br-md">
             <slot name="actions" />
           </div>
         </form>
