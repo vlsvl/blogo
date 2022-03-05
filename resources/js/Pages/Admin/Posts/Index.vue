@@ -1,6 +1,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/Admin.vue'
 import IndexPage from '@/Components/Admin/IndexPage.vue'
+import { Link } from '@inertiajs/inertia-vue3'
 
 defineProps({
   posts: Object,
@@ -20,8 +21,27 @@ const headers = [
     title: 'Slug',
   },
   {
+    name: 'updated_at',
+    title: 'Updated',
+  },
+  {
     name: 'user',
     title: 'User',
+  },
+]
+
+const actions = [
+  {
+    route: 'public.post.show',
+    type: 'view',
+    param: 'slug',
+    color: 'btn-primary',
+  },
+  {
+    route: 'posts.edit',
+    type: 'edit',
+    param: 'slug',
+    color: 'btn-success',
   },
 ]
 </script>
@@ -34,9 +54,11 @@ const headers = [
     <IndexPage
       :headers="headers"
       :content="posts"
+      :actions="actions"
     >
-      <!-- <template #buttons>
-      </template> -->
+      <template #buttons>
+        <Link :href="route('posts.create')" class="btn btn-primary">Create post</Link>
+      </template>
     </IndexPage>
   </AdminLayout>
 </template>

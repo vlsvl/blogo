@@ -1,0 +1,7 @@
+/*Fix for text editor*/
+.ql-container.ql-snow {
+  height: auto;
+}
+.ql-container.ql-snow .ql-editor {
+  height: auto;
+}
