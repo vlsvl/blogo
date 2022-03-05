@@ -32,6 +32,7 @@ const headers = [
 
 const actions = [
   {
+    condition: 'posted_at|notempty',
     route: 'public.post.show',
     type: 'view',
     param: 'slug',
