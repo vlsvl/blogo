@@ -36,8 +36,9 @@ const headers = [
 
 const actions = [{
   route: 'users.show',
-  title: 'View',
+  type: 'view',
   param: 'id',
+  color: 'btn-primary',
 }]
 
 function filter() {
