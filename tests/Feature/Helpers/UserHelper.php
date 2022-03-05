@@ -24,4 +24,12 @@ trait UserHelper
         $user->assignRole(Role::ROLE_EDITOR);
         return $user;
     }
+
+    private function getSimpleUser()
+    {
+        $this->seed(RoleSeeder::class);
+        $user = User::factory()->create();
+        $user->assignRole(Role::ROLE_USER);
+        return $user;
+    }
 }
