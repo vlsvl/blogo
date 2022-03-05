@@ -18,8 +18,6 @@ yarn-error.log
 .php-cs-fixer.cache
 # Phpstan and coverage html folder
 /tmp
-# Makefile
-nohup.out
 #ide-helper
 _ide_helper_models.php
 _ide_helper.php
