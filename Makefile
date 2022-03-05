@@ -87,10 +87,10 @@ feature: ## Run command for test some feature. Sometimes better use command then
 ##Work with browser
 ##---------------
 open-site: ## Open site in default browser
-	nohup xdg-open http://blogo.test
+	nohup xdg-open http://blogo.test >/dev/null 2>&1 &
 
 open-mail: ## Open mailhog in default browser
-	nohup xdg-open http://localhost:8025
+	nohup xdg-open http://localhost:8025 >/dev/null 2>&1 &
 
 
 .DEFAULT_GOAL := help
