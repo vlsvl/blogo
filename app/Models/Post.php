@@ -19,7 +19,7 @@ class Post extends Model
         'posted_at',
     ];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
@@ -29,8 +29,13 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeLatestDesc(Builder $query)
+    public function scopeLatest(Builder $query): Builder
     {
-        return $query->orderBy('posted_at', 'desc');
+        return $query->orderBy('updated_at', 'desc');
+    }
+
+    public function scopePosted(Builder $query): Builder
+    {
+        return $query->where('posted_at', '<>', null);
     }
 }

@@ -1,87 +1,101 @@
 <script setup>
 // Import form elements
 import AppLayout from '@/Layouts/Admin.vue'
+import {useForm, usePage, Link} from '@inertiajs/inertia-vue3'
+import FormSection from '@/Components/Form/FormSection.vue'
+import CLabel from '@/Components/Form/Label.vue'
+import CInput from '@/Components/Form/Input.vue'
+import CInputError from '@/Components/Form/InputError.vue'
+import CCheckbox from '@/Components/Form/Checkbox.vue'
+import ActionMessage from '@/Components/Form/ActionMessage.vue'
 // Import editor and modules
 import RichTextEditor from '@/Components/RichTextEditor.vue'
 
-defineProps({
+const props = defineProps({
   post: Object,
 })
 
+const form = useForm({
+  id: '' || props.post?.id,
+  title: '' || props.post?.title,
+  slug: '' || props.post?.slug,
+  content: '' || props.post?.content,
+  published: Boolean(props.post?.posted_at),
+  user_id: usePage().props.value.auth.user.id || '',
+})
 
-//   data() {
-//     return {
-//       quill: null,
-//       content: '',
-//       form: this.$inertia.form({
-//         id: '' || this.post?.id,
-//         title: '' || this.post?.title,
-//         slug: '' || this.post?.slug,
-//         content: '' || this.post?.content,
-//       }),
-//       modules: [
-//         {
-//           name: 'imageUploader',
-//           module: ImageUploader,
-//           options: {
-//             upload: (file) => {
-//               return new Promise((resolve, reject) => {
-//                 const formData = new FormData()
+console.log(props.post?.content)
 
-//                 formData.append('image', file)
-
-//                 axios.post(
-//                   route('editor.upload'),
-//                   {
-//                     method: 'POST',
-//                     body: formData,
-//                   },
-//                 )
-//                   .then(response => response.json())
-//                   .then(result => {
-//                     console.log(result)
-//                     resolve(result.data.url)
-//                   })
-//                   .catch(error => {
-//                     reject('Upload failed')
-//                     console.error('Error:', error)
-//                   })
-//               })
-//             },
-//           },
-//         },
-//       ],
-//     }
-//   },
-//   created() {
-//     if (this.post) {
-//       this.content = this.post.content
-//     }
-//   },
-//   methods: {
-//     submit() {
-//       this.form.content = this.content
-
-//       if (!this.post) {
-//         this.form.post(this.route('posts.store'))
-//       } else {
-//         this.form.put(this.route('posts.update', this.post.id))
-//       }
-//     },
-//     onEditorReady (editor) {
-//       this.editor = editor
-//       console.log(editor)
-//     },
-//   },
-// })
+function savePost() {
+  form[props.post ? 'patch' : 'post'](
+    props.post ? route('posts.update', props.post.slug) : route('posts.store'),
+    {
+      errorBag: 'createUpdatePost',
+      preserveScroll: true,
+      onSuccess: () => console.log('Post success'),
+      onError: () => {
+        console.error(form.errors)
+      },
+    },
+  )
+}
 </script>
 
 <template>
   <app-layout title="Posts">
-    <div class="">
-      <div class="">
-        <RichTextEditor />
-      </div>
-    </div>
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Post: {{ post ? post.title : 'Create post' }}
+      </h2>
+    </template>
+    <FormSection @submitted="savePost">
+      <template #title>
+        {{ post ? 'Update' : 'Create' }} Post
+      </template>
+
+      <template #description>
+        <div class="mb-4">
+          Edit content of your post.
+        </div>
+        <Link :href="route('posts.index')" class="btn btn-primary">Back to list</Link>
+      </template>
+
+      <template #form>
+        <div class="col-span-6 sm:col-span-4">
+          <CLabel for="title" value="Post title" />
+          <CInput id="title" ref="titleInput" v-model="form.title" type="text" class="mt-1 block w-full" />
+          <CInputError :message="form.errors.title" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+          <CLabel for="slug" value="Post slug" />
+          <CInput id="slug" ref="slugInput" v-model="form.slug" type="text" class="mt-1 block w-full" />
+          <CInputError :message="form.errors.slug" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+          <CCheckbox v-model:checked="form.published" name="remember" />
+          <span class="ml-2 text-sm text-gray-600">Post published</span>
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+          <CLabel value="Post content" />
+          <RichTextEditor v-model:value="form.content" :content="form.content" />
+          <CInputError :message="form.errors.content" class="mt-2" />
+        </div>
+      </template>
+
+      <template #actions>
+        <ActionMessage :on="form.recentlySuccessful" class="mr-3">
+          Saved.
+        </ActionMessage>
+
+        <input
+          type="submit" class="btn btn-primary"
+          :class="{ 'opacity-25': form.processing }" :disabled="form.processing || form.content === ''"
+          :value="post ? 'Update' : 'Save'"
+        />
+      </template>
+    </FormSection>
   </app-layout>
 </template>

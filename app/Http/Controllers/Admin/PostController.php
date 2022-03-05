@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -9,6 +10,10 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,13 +25,15 @@ class PostController extends Controller
             'Admin/Posts/Index',
             [
             'posts' => Post::orderBy('id', 'asc')
+                ->select(['id', 'title', 'slug', 'updated_at', 'user_id'])
                 ->with('user')
                 ->paginate(10)
                 ->through(
                     fn ($post) => [
                         'id' => $post->id,
                         'title' => $post->title,
-                        'slug' => $post->title,
+                        'slug' => $post->slug,
+                        'updated_at' => $post->updated_at->format('d.m.Y'),
                         'user' => $post->user->name,
                     ]
                 ),
@@ -47,12 +54,15 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param PostRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(PostRequest $request): \Illuminate\Http\RedirectResponse
     {
-        //
+       Post::create($request->validated());
+
+       return redirect()->route('posts.index')
+           ->with('success', 'Post created!');
     }
 
     /**
@@ -63,7 +73,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return redirect()->route('public.post.show', $post->slug);
     }
 
     /**
@@ -80,8 +90,9 @@ class PostController extends Controller
                 'post' => [
                     'id' => $post->id,
                     'title' => $post->title,
-                    'slug' => $post->title,
+                    'slug' => $post->slug,
                     'content' => $post->content,
+                    'posted_at' => $post->posted_at ? $post->posted_at->format('d.m.Y') : '',
                     'user' => $post->user->name,
                 ]
             ]
@@ -91,13 +102,17 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param PostRequest $request
+     * @param \App\Models\Post $post
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post): \Illuminate\Http\RedirectResponse
     {
-        //
+        $data= $request->validated();
+        $post->update($data);
+
+        return redirect()->route('posts.index')
+            ->with('success', 'Post has been updated');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers\Admin;
 
+use App\Models\Post;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
@@ -36,5 +37,43 @@ class PostControllerTest extends TestCase
             fn(Assert $assert) => $assert
                 ->component('Admin/Posts/Index')
         );
+    }
+
+    public function test_user_cannot_see_index_page()
+    {
+        $this->actingAs($this->getSimpleUser());
+
+        $response = $this->get('/admin/posts');
+        $response->assertStatus(403);
+    }
+
+    public function test_create_post()
+    {
+        $user = $this->getAdminUser();
+        $this->actingAs($user);
+
+        $post = Post::factory()->make();
+
+        $response = $this->post("/admin/posts", [
+            'title' => $post->title,
+            'content' => $post->content,
+            'user_id' => $user->id,
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_update_post()
+    {
+        $this->actingAs($this->getAdminUser());
+
+        $post = Post::factory()->create();
+
+        $response = $this->put("/admin/posts/{$post->slug}",[
+            'title' => $post->title,
+            'content' => $post->content,
+        ]);
+
+        $response->assertStatus(302);
     }
 }

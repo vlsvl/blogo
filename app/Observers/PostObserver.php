@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class PostObserver

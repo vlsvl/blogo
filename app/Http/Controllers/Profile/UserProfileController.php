@@ -19,7 +19,7 @@ class UserProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Inertia\Response
      */
-    public function index(Request $request): Inertia\Response
+    public function index(Request $request): \Inertia\Response
     {
         return Inertia::render('Profile/Index');
     }

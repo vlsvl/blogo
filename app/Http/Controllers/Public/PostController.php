@@ -14,6 +14,7 @@ class PostController extends Controller
         return Inertia::render('Public/Index', [
             'posts' => Post::with('user')
                 ->latest()
+                ->posted()
                 ->paginate(10)
                 ->through(fn ($post) => [
                     'title' => $post->title,
