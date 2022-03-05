@@ -24,8 +24,8 @@ class PostController extends Controller
         return Inertia::render(
             'Admin/Posts/Index',
             [
-            'posts' => Post::orderBy('id', 'asc')
-                ->select(['id', 'title', 'slug', 'updated_at', 'user_id'])
+            'posts' => Post::orderBy('updated_at', 'desc')
+                ->select(['id', 'title', 'slug', 'updated_at', 'posted_at', 'user_id'])
                 ->with('user')
                 ->paginate(10)
                 ->through(
@@ -33,6 +33,7 @@ class PostController extends Controller
                         'id' => $post->id,
                         'title' => $post->title,
                         'slug' => $post->slug,
+                        'posted_at' => $post->posted_at ? $post->posted_at->format('d.m.Y') : '',
                         'updated_at' => $post->updated_at->format('d.m.Y'),
                         'user' => $post->user->name,
                     ]
