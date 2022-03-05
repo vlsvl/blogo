@@ -1,7 +1,7 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import TableActions from '@/Components/Admin/TableActions'
 
-const props = defineProps({
+defineProps({
   headers: Array,
   rows: Array,
   actions: {
@@ -9,8 +9,6 @@ const props = defineProps({
     default: () => [],
   },
 })
-
-console.log(props.actions)
 </script>
 
 <template>
@@ -47,7 +45,7 @@ console.log(props.actions)
         v-for="(row, id) in rows"
         :key="id"
         class="block shadow-xl mb-6 p-4 lg:p-0 border-2 border-gray-200 lg:border-0 lg:mb-0 lg:shadow-none lg:table-row hover:bg-blue-200 duration-200"
-        :class="{ 'bg-gray-100': id % 2 === 0 }"
+        :class="{ 'lg:bg-gray-100': id % 2 === 0 }"
       >
         <td
           v-for="(header, hid) in headers"
@@ -71,13 +69,7 @@ console.log(props.actions)
           </span>
         </td>
         <td v-if="actions?.length !== 0" class="py-2">
-          <Link
-            v-for="(action,aid) in actions"
-            :key="aid" class="btn btn-primary"
-            :href="route(action.route, row[action.param])"
-          >
-            {{ __(action.title) }}
-          </Link>
+          <TableActions :actions="actions" :item="row" />
         </td>
       </tr>
     </tbody>
