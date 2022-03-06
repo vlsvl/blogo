@@ -50,4 +50,13 @@ class UserPolicy
     {
         return $user->isAdmin();
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function changeRole(User $user)
+    {
+        return $user->isAdmin();
+    }
 }
