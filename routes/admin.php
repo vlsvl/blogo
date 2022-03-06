@@ -39,6 +39,8 @@ Route::group([
             ->only(['index', 'show', 'destroy']);
         Route::get('users/auth-as/{user}', [UserController::class, 'authAs'])
             ->name('users.auth_as');
+        Route::patch('users/change-role/{user}', [UserController::class, 'changeRole'])
+            ->name('users.change_role');
         // Roles
         Route::resource('roles', RoleController::class);
         // Posts

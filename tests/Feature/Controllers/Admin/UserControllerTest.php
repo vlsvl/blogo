@@ -53,4 +53,26 @@ class UserControllerTest extends TestCase
         $response = $this->get('/admin/users/1');
         $response->assertStatus(403);
     }
+
+    public function test_admin_change_role()
+    {
+        $testUser = $this->getSimpleUser();
+        $this->actingAs($this->getAdminUser());
+
+        $response = $this->patch("/admin/users/change-role/$testUser->id", [
+            'role_id' => Role::where('name',Role::ROLE_EDITOR)->first()->id,
+        ]);
+        $response->assertStatus(302);
+    }
+
+    public function test_user_change_role()
+    {
+        $testUser = $this->getSimpleUser();
+        $this->actingAs($this->getSimpleUser());
+
+        $response = $this->patch("/admin/users/change-role/$testUser->id", [
+            'role_id' => Role::where('name',Role::ROLE_EDITOR)->first()->id,
+        ]);
+        $response->assertStatus(403);
+    }
 }

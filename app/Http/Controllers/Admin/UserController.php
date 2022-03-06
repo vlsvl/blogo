@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -27,6 +28,7 @@ class UserController extends Controller
             'show' => 'view',
             'destroy' => 'delete',
             'authAs' => 'authAs',
+            'changeRole' => 'changeRole',
         ];
     }
 
@@ -83,7 +85,15 @@ class UserController extends Controller
                 'created_at' => $user->created_at->format('d.m.Y'),
                 'updated_at' => $user->updated_at->format('d.m.Y'),
                 'email_verified_at' => $user->email_verified_at->format('d.m.Y'),
-            ]
+                'role_title' => $user->role->title,
+                'role_id' => $user->role->id,
+            ],
+            'roles' => Role::select(['id', 'title'])
+                ->get()
+                ->map(fn($role) => [
+                    'id' => $role->id,
+                    'title' => $role->title,
+                ])
         ]);
     }
 
@@ -92,6 +102,18 @@ class UserController extends Controller
         Auth::login($user);
         return redirect()->route('users.index')
             ->with('success', "You authorized as $user->name.");
+    }
+
+    public function changeRole(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    {
+        $validated = $request->validate([
+            'role_id' => 'required|integer|exists:roles,id'
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->back()
+            ->with('success', "User $user->name role changed.");
     }
 
     /**

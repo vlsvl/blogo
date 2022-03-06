@@ -1,12 +1,15 @@
 <script setup>
 import AdminLayout from '@/Layouts/Admin.vue'
 import { Link, useForm } from '@inertiajs/inertia-vue3'
+import Collapse from '@/Components/Collapse'
+import ChangeRoleForm from './Partials/ChangeRoleForm'
 
 const props = defineProps({
   user: Object,
+  roles: Array,
 })
 
-const fields = ['id', 'name', 'email', 'created_at', 'updated_at', 'email_verified_at']
+const fields = ['id', 'name', 'email', 'created_at', 'updated_at', 'email_verified_at', 'role_title']
 
 const form = useForm({
   id: props.user.id,
@@ -46,7 +49,7 @@ function remove() {
           </form>
         </div>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700 mb-6">
         <div class="text-md">
           <div v-for="(field, id) in fields" :key="id" class="grid grid-cols-2">
             <div class="py-2 font-semibold">{{ __('User ' + field) }}:</div>
@@ -54,6 +57,15 @@ function remove() {
           </div>
         </div>
       </div>
+      <Collapse>
+        <template #header>
+          {{ __("Change user role") }}
+        </template>
+
+        <template #content>
+          <ChangeRoleForm :user="user" :role="user.role_id" :roles="roles" />
+        </template>
+      </Collapse>
     </div>
   </AdminLayout>
 </template>
