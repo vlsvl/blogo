@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\UserProfileController;
+use App\Http\Controllers\Public\CommentController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\PostController;
@@ -27,6 +28,7 @@ Route::get('category', function () {
 Route::get('about', function () {
     return "About page";
 })->name('about');
+Route::post('/comment', [CommentController::class, 'store'])->name('public.comment.store');
 
 require __DIR__.'/auth.php';
 // Get post pages for other routes
