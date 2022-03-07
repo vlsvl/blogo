@@ -27,7 +27,7 @@ defineProps({
       items-top
       justify-center
       min-h-screen
-      sm:items-center sm:pt-0
+      sm:items-center px-4
     "
     >
       <div class="container mx-auto max-w-5xl">

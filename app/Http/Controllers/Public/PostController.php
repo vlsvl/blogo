@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,6 +14,7 @@ class PostController extends Controller
     {
         return Inertia::render('Public/Index', [
             'posts' => Post::with('user')
+                ->withCount('comments')
                 ->latest()
                 ->posted()
                 ->paginate(10)
@@ -25,6 +27,7 @@ class PostController extends Controller
                         'id' => $post->user->id,
                         'name' => $post->user->name,
                     ],
+                    'comments_count' => $post->comments_count,
                 ])
         ]);
     }
@@ -43,6 +46,14 @@ class PostController extends Controller
                     'name' => $post->user->name,
                 ],
             ],
+            'comments' => Comment::where('post_id', $post->id)
+                ->with('user')
+                ->get()
+                ->map(fn($comment) => [
+                    'user_name' => $comment->user->name,
+                    'content' => $comment->content,
+                    'created_at' => $comment->created_at->format('d.m.Y'),
+                ])
         ]);
     }
 }

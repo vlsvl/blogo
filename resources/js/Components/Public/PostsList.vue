@@ -13,7 +13,10 @@ defineProps({
       </Link>
       <div class="flex justify-between pb-6">
         <span class="text-sm block text-cyan-600">{{ post.user.name }}</span>
-        <span class="text-sm block text-gray-600">{{ post.posted_at }}</span>
+        <span>
+          <span class="text-sm inline-block text-gray-600 mr-4">{{ post.posted_at }}</span>
+          <span class="text-sm inline-block text-gray-600">Comments: {{ post.comments_count || 0 }}</span>
+        </span>
       </div>
       <div class="text-lg" v-html="post.content" />
     </div>
