@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Filters\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,5 +44,15 @@ class Post extends Model
     public function scopePosted(Builder $query): Builder
     {
         return $query->where('posted_at', '<>', null);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param QueryFilter $filter
+     * @return void
+     */
+    public function scopeFilter(Builder $builder, QueryFilter $filter)
+    {
+        return $filter->apply($builder);
     }
 }

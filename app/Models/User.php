@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Filters\QueryFilter;
 use App\Models\Traits\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,15 +55,13 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * @param Builder $query
-     * @param array $filter
+     * @param Builder $builder
+     * @param QueryFilter $filter
      * @return void
      */
-    public function scopeFilter(Builder $query, array $filter)
+    public function scopeFilter(Builder $builder, QueryFilter $filter)
     {
-        $query->when($filter['search'] ?? null, function ($query, $search) {
-            $query->where('name', 'like', "%$search%");
-        });
+        return $filter->apply($builder);
     }
 
     public function posts(): HasMany

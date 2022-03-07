@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Filters\UserFilter;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -46,15 +47,15 @@ class UserController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(Request $request): \Inertia\Response
+    public function index(UserFilter $request): \Inertia\Response
     {
         return Inertia::render(
             'Admin/Users/Index',
             [
-            'filters' => $request->all('search', 'role'),
+            'filters' => $request->getQuery(['search', 'role']),
             'users' => User::orderBy('id', 'asc')
                 ->with('role')
-                ->filter($request->only('search'))
+                ->filter($request)
                 ->paginate(10)
                 ->withQueryString()
                 ->through(
