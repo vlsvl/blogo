@@ -35,6 +35,12 @@ const adminLinks = [
         title: 'posts',
         icon: 'write',
       },
+      {
+        type: 'link',
+        route: 'comments.index',
+        title: 'comments',
+        icon: 'message',
+      },
     ],
   },
 ]

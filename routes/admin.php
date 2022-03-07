@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
@@ -45,4 +46,6 @@ Route::group([
         Route::resource('roles', RoleController::class);
         // Posts
         Route::resource('posts', PostController::class);
+        // Comments
+        Route::resource('comments', CommentController::class);
 });
