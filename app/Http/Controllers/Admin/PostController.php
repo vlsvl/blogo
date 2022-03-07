@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PostRequest;
+use App\Models\Filters\PostFilter;
 use App\Models\Post;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -19,15 +20,17 @@ class PostController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index(PostFilter $request): \Inertia\Response
     {
         return Inertia::render(
-            'Admin/Posts/Index',
-            [
+            'Admin/Posts/Index', [
+            'filters' => $request->getQuery(['search']),
             'posts' => Post::orderBy('updated_at', 'desc')
                 ->select(['id', 'title', 'slug', 'updated_at', 'posted_at', 'user_id'])
                 ->with('user')
+                ->filter($request)
                 ->paginate(10)
+                ->withQueryString()
                 ->through(
                     fn ($post) => [
                         'id' => $post->id,

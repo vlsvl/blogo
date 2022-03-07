@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Filters\CommentFilter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,15 +13,19 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param CommentFilter $request
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index(CommentFilter $request): \Inertia\Response
     {
         return Inertia::render('Admin/Comments/Index', [
+            'filters' => $request->getQuery(['search', 'created_at']),
             'comments' => Comment::orderBy('created_at', 'desc')
+                ->filter($request)
                 ->with('post')
                 ->with('user')
                 ->paginate(20)
+                ->withQueryString()
                 ->through(fn($comment) => [
                     'id' => $comment->id,
                     'content' => $comment->content,
