@@ -22,6 +22,7 @@ services:
       XDEBUG_CLIENT_HOST: 'client_host=172.17.0.1'
     volumes:
       - ./:/var/www
+      - '${PWD}/docker/php/:/etc/supervisor.d/'
     networks:
       - blogo
 
