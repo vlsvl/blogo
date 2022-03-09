@@ -2,6 +2,7 @@
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import { useActive } from '@/Composable/route_active'
+import {onMounted} from 'vue'
 
 defineProps({
   title: {
@@ -24,6 +25,22 @@ const navLinks = [
     title: 'About',
   },
 ]
+
+onMounted(() => {
+
+  const echo = window.Echo.join('room')
+    .here(users => {
+      console.log('Updated here page', users)
+    })
+    .joining(user => {
+      console.log('Updated other browser page', user)
+    })
+    .listen('HelloMessage', ({message}) => {
+
+      console.log('Sockets message', message)
+    })
+  console.log(echo)
+})
 
 const { isActive } = useActive()
 

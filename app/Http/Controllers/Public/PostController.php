@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Events\Hello;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
@@ -12,6 +13,8 @@ class PostController extends Controller
 {
     public function index()
     {
+        Hello::broadcast("test message from index");
+
         return Inertia::render('Public/Index', [
             'posts' => Post::with('user')
                 ->withCount('comments')
