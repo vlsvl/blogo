@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Events\Hello;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -13,9 +14,9 @@ class CommentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validate([
             'content' => 'required|max:255',
@@ -26,6 +27,9 @@ class CommentController extends Controller
             'content' => $validated['content'],
             'post_id' => $validated['post_id'],
         ]);
+
+        Hello::broadcast($validated['content']);
+
         return redirect()->back();
     }
 }

@@ -26,6 +26,13 @@ services:
     networks:
       - blogo
 
+  soketi:
+    image: soketi/pws:latest
+    ports:
+      - 6001:6001
+    networks:
+      - blogo
+
   postgres:
     image: postgres:alpine
     ports:
