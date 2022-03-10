@@ -6,7 +6,7 @@ services:
     image: nginx:alpine
     volumes:
       - ./:/var/www/
-      - ./docker/nginx/:/etc/nginx/conf.d
+      - '${PWD}/.docker/nginx/:/etc/nginx/conf.d'
     ports:
       - 80:80
     networks:
@@ -22,7 +22,7 @@ services:
       XDEBUG_CLIENT_HOST: 'client_host=172.17.0.1'
     volumes:
       - ./:/var/www
-      - '${PWD}/docker/php/:/etc/supervisor.d/'
+      - '${PWD}/.docker/php/:/etc/supervisor.d/'
     networks:
       - blogo
 
