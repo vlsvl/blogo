@@ -1,8 +1,8 @@
 ## BLogo 
 Example of blog-platform on laravel framework.
 * Use laravel/sanctum for authentication.
-* Use InertiaJS and TailwindCss for frontend.
-* Docker for dev environment.
+* Use Vue 3 (Composition API), InertiaJS and TailwindCss for frontend.
+* Docker dev environment
 
 > ! Many helpfully things started from makefile.
 
@@ -17,6 +17,9 @@ Example of blog-platform on laravel framework.
 6. [ ] Add polymorphic like for posts and comments.
 
 ## Start local environment.
+
+Need installed php8, composer, nodejs and npm locally.
+
 ```shell
 git clone https://github.com/vlsvl/blogo &&
 cd blogo &&
@@ -24,3 +27,7 @@ composer install &&
 npm i && npm run dev &&
 make 
 ```
+
+## Preview
+![](.assets/client.jpg)
+![](.assets/admin.jpg)
