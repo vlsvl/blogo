@@ -1,7 +1,6 @@
 <script setup>
 import PublicLayout from '@/Layouts/Public.vue'
 import Hero from '@/Components/Public/Hero'
-import Search from '@/Components/Public/Search.vue'
 import PostsList from '@/Components/Public/PostsList.vue'
 import Pagination from '@/Components/Public/Pagination.vue'
 import { Inertia } from '@inertiajs/inertia'
@@ -62,7 +61,6 @@ onMounted(() => {
     "
     >
       <div class="container mx-auto max-w-5xl">
-        <Search />
         <PostsList :posts="allPosts" />
         <span ref="loadMoreIntersect" />
         <div class="mt-8 flex justify-center">
