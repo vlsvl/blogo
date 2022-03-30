@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\UserProfileController;
 use Inertia\Inertia;
@@ -48,4 +50,9 @@ Route::group([
         Route::resource('posts', PostController::class);
         // Comments
         Route::resource('comments', CommentController::class);
+
+        Route::post('upload/{post}', [UploadController::class, 'uploadImage'])
+            ->name('uploadImage');
+        Route::post('search', [SearchController::class, 'search'])
+            ->name('search');
 });

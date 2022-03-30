@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import { useActive } from '@/Composable/route_active'
-import {onMounted} from 'vue'
+import Notify from '@/Components/Notify.vue'
 
 defineProps({
   title: {
@@ -26,24 +26,7 @@ const navLinks = [
   },
 ]
 
-onMounted(() => {
-
-  const echo = window.Echo.join('room')
-    .here(users => {
-      console.log('Updated here page', users)
-    })
-    .joining(user => {
-      console.log('Updated other browser page', user)
-    })
-    .listen('HelloMessage', ({message}) => {
-
-      console.log('Sockets message', message)
-    })
-  console.log(echo)
-})
-
 const { isActive } = useActive()
-
 </script>
 
 <template>
@@ -51,7 +34,14 @@ const { isActive } = useActive()
     <Head :title="__(title)" />
     <!-- Header start -->
     <nav
-      class="w-full mx-auto flex justify-between items-center border-t-8 border-main-blue"
+      class="
+        w-full
+        mx-auto
+        flex
+        justify-between
+        items-center
+        border-t-8 border-main-blue
+      "
     >
       <!-- Logo -->
       <span class="block text-3xl p-4">BLogo</span>
@@ -59,7 +49,8 @@ const { isActive } = useActive()
       <!-- Nav Bar -->
       <div class="flex w-full justify-center h-18">
         <div
-          v-for="(link,id) in navLinks" :key="id"
+          v-for="(link, id) in navLinks"
+          :key="id"
           class="link"
           :class="{ active: isActive(link) }"
         >
@@ -72,6 +63,9 @@ const { isActive } = useActive()
       <!-- End User Menu -->
     </nav>
     <!-- Header end -->
+    <Teleport to="body">
+      <Notify />
+    </Teleport>
     <slot />
     <!-- Footer start -->
     <footer class="mt-24 bg-gradient-to-b from-white to-blue-300">
@@ -94,7 +88,11 @@ const { isActive } = useActive()
           </div>
           <div class="flex-1">
             <ul class="list-reset mb-6 flex flex-row">
-              <li v-for="(link, id) in navLinks" :key="id" class="mt-2 inline-block mr-2 px-4 md:block md:mr-0">
+              <li
+                v-for="(link, id) in navLinks"
+                :key="id"
+                class="mt-2 inline-block mr-2 px-4 md:block md:mr-0"
+              >
                 <Link
                   :href="route(link.route)"
                   class="

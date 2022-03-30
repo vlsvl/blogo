@@ -28,7 +28,7 @@ class CommentController extends Controller
             'post_id' => $validated['post_id'],
         ]);
 
-        Hello::broadcast($validated['content']);
+        Hello::broadcast("Comment for this post was created.");
 
         return redirect()->back();
     }

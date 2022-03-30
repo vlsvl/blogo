@@ -2,8 +2,10 @@
 
 namespace App\Observers;
 
+use App\Jobs\SubscribeNotify;
 use App\Models\Post;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class PostObserver
@@ -53,7 +55,8 @@ class PostObserver
      */
     public function updated(Post $post)
     {
-        //
+        Cache::forget("post_anonce_$post->slug");
+        SubscribeNotify::dispatch($post);
     }
 
     /**

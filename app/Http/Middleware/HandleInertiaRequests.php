@@ -49,6 +49,7 @@ class HandleInertiaRequests extends Middleware
                     'error' => Session::get('error'),
                 ];
             },
+            'csrf_token' => csrf_token(),
             'locale' => fn () => app()->getLocale(),
             'locales' => fn () => config('blogo.locales'),
             'translation' => fn () => app(TranslationService::class)

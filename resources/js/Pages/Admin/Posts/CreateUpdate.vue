@@ -15,6 +15,48 @@ const props = defineProps({
   post: Object,
 })
 
+const options = {
+  modules: {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ script: 'sub' }, { script: 'super' }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        [{ direction: 'rtl' }],
+        [{ size: ['small', false, 'large', 'huge'] }],
+        [{ header: [2, 3, 4, 5, 6, false] }],
+        [{ color: [] }, { background: [] }],
+        [{ font: [] }],
+        [{ align: [] }],
+        ['clean'],
+        [{cut: 'Cut' }],
+        ['link', 'image'],
+      ],
+      handlers: {
+        image() {
+          const file = document.createElement('input')
+          file.setAttribute('type', 'file')
+          file.setAttribute('accept', 'image/*')
+          file.addEventListener('change', (e) => {
+            const form = new FormData()
+            form.append('file', file.files[0])
+            axios.post(route('uploadImage', usePage().props.value.post?.slug), form)
+              .then(response => {
+                const result = response.data
+                console.log(result)
+                const range = this.quill.getSelection()
+                this.quill.insertEmbed(range.index, 'image', result.link)
+              })
+          })
+          file.click()
+        },
+      },
+    },
+  },
+}
+
 const form = useForm({
   id: '' || props.post?.id,
   title: '' || props.post?.title,
@@ -80,7 +122,7 @@ function savePost() {
 
         <div class="col-span-6 sm:col-span-4">
           <CLabel value="Post content" />
-          <RichTextEditor v-model:value="form.content" :content="form.content" />
+          <RichTextEditor v-model:value="form.content" :content="form.content" :options="options" />
           <CInputError :message="form.errors.content" class="mt-2" />
         </div>
       </template>

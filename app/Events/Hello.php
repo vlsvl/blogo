@@ -24,18 +24,16 @@ class Hello implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('room');
+        return new Channel('BLogo.Public');
     }
 
+    /**
+     * The event's broadcast name.
+     *
+     * @return string
+     */
     public function broadcastAs()
     {
-        return 'HelloMessage';
-    }
-
-    public function broadcastWith()
-    {
-        return [
-            'message' => $this->message,
-        ];
+        return 'console.message';
     }
 }

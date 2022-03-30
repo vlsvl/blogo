@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from 'vue'
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3'
 import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
@@ -8,6 +8,7 @@ import FlashMessages from '@/Components/FlashMessages.vue'
 import LocaleSwitch from '@/Components/Admin/LocaleSwitch'
 import {useActive} from '@/Composable/route_active'
 import {adminLinks} from '@/params'
+import Search from '@/Components/Admin/Search'
 
 defineProps({
   title: String,
@@ -33,6 +34,12 @@ const {isActive} = useActive()
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
 }
+// Search modal settings
+const showModal = ref(false)
+function close () {
+  showModal.value = !showModal.value
+}
+
 
 </script>
 
@@ -162,25 +169,17 @@ const toggleSidebar = () => {
               BLogo
             </Link>
           </div>
-          <!-- Form -->
-          <form
-            class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
-          >
-            <div class="relative flex w-full flex-wrap items-stretch">
-              <span
-                class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"
-              >
-                <i class="fas fa-search" />
-              </span>
-              <input
-                type="text"
-                placeholder="Search here..."
-                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
-              />
-            </div>
-          </form>
           <!-- User -->
           <div class="flex list-none items-center">
+            <button
+              class="mr-2 relative w-10 h-10 py-2 text-white focus:outline-none focus:shadow-outline"
+              aria-expanded="true" aria-controls="sidebar"
+              @click="showModal = !showModal"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
             <LocaleSwitch class="text-white mr-3" />
             <UserDropdownMenu class="text-white" />
           </div>
@@ -200,10 +199,14 @@ const toggleSidebar = () => {
           </div>
         </header>
         <!-- End Page Heading -->
+        <!-- Flashes -->
         <div class="my-4">
           <FlashMessages />
         </div>
-        <!-- Page Content -->
+        <!-- End Flashes -->
+        <!-- Search Modal -->
+        <Search :show="showModal" @close="close" />
+        <!-- End Search Modal -->
         <slot />
         <!-- End Page Content -->
       </main>

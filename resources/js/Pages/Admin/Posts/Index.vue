@@ -4,6 +4,8 @@ import IndexPage from '@/Components/Admin/IndexPage.vue'
 import CLabel from '@/Components/Form/Label.vue'
 import CInput from '@/Components/Form/Input.vue'
 import { Link, useForm } from '@inertiajs/inertia-vue3'
+import Markdown from 'vue3-markdown-it'
+import {ref} from 'vue'
 
 const props = defineProps({
   posts: Object,
@@ -53,6 +55,8 @@ const form = useForm({
   search: props.filters.search || '',
 })
 
+const source = ref('#test source')
+
 function filter() {
   form.get(route('posts.index'))
 }
@@ -69,6 +73,7 @@ function filter() {
       :actions="actions"
     >
       <template #filter>
+        <Markdown :source="source" />
         <form action="route('comments.index')" class="shadow-md p-4 mb-6" method="post" @submit.prevent="filter">
           <div class="md:grid md:grid-cols-2 w-full">
             <div class="flex items-center md:mr-3 mb-3 md:mb-0">

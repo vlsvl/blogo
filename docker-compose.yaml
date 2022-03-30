@@ -8,12 +8,17 @@ services:
       - ./:/var/www/
       - '${PWD}/.docker/nginx/:/etc/nginx/conf.d'
     ports:
-      - 80:80
+      - "80:80"
     networks:
       - blogo
     depends_on:
       - php
       - postgres
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://blogo.test"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
 
   php:
     image: idleo/lardo:latest
@@ -29,14 +34,14 @@ services:
   soketi:
     image: soketi/pws:latest
     ports:
-      - 6001:6001
+      - "6001:6001"
     networks:
       - blogo
 
   postgres:
     image: postgres:alpine
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: '${DB_PASSWORD}'
       POSTGRES_DB: '${DB_DATABASE}'
@@ -63,6 +68,24 @@ services:
     networks:
       - blogo
 
+  s3:
+    image: 'minio/minio:latest'
+    ports:
+      - '${FORWARD_MINIO_PORT:-9000}:9000'
+      - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+    environment:
+      MINIO_ROOT_USER: 'user'
+      MINIO_ROOT_PASSWORD: 'password'
+    volumes:
+      - 'minio_data_blogo:/data/minio'
+    networks:
+      - blogo
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      retries: 3
+      timeout: 5s
+
 networks:
   blogo:
     driver: bridge
@@ -71,3 +94,4 @@ volumes:
   postgres_data_blogo:
   redis_data_blogo:
   meilisearch_data_blogo:
+  minio_data_blogo:

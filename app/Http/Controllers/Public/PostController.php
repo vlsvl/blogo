@@ -13,18 +13,16 @@ class PostController extends Controller
 {
     public function index()
     {
-        Hello::broadcast("test message from index");
-
         return Inertia::render('Public/Index', [
             'posts' => Post::with('user')
                 ->withCount('comments')
-                ->latest()
+                ->latestDesc()
                 ->posted()
                 ->paginate(10)
                 ->through(fn ($post) => [
                     'title' => $post->title,
                     'slug' => $post->slug,
-                    'content' => $post->content,
+                    'content' => $post->getFirstParagraph(),
                     'posted_at' => $post->posted_at->format('d.m.Y'),
                     'user' => [
                         'id' => $post->user->id,
