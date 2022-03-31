@@ -32,6 +32,12 @@ function submit() {
           <span class="text-sm block text-gray-600">{{ post.posted_at }}</span>
         </div>
         <div class="mb-6" v-html="post.content" />
+        <div v-if="post.tags?.length" class="mb-12">
+          <div class="text-2xl text-gray-500">Tags</div>
+          <div>
+            <span v-for="tag in post.tags" :key="tag.id" class="p-2 rounded-md inline-block bg-main-blue mr-4 text-white font-bold">{{ tag.name }}</span>
+          </div>
+        </div>
         <div class="mb-12">
           <div class="text-2xl text-gray-500">Comments</div>
           <Comments :comments="comments" :post-id="post.id" />

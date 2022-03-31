@@ -8,6 +8,8 @@ import CInput from '@/Components/Form/Input.vue'
 import CInputError from '@/Components/Form/InputError.vue'
 import CCheckbox from '@/Components/Form/Checkbox.vue'
 import ActionMessage from '@/Components/Form/ActionMessage.vue'
+import VueMultiselect from 'vue-multiselect'
+import {ref} from 'vue'
 // Import editor and modules
 import RichTextEditor from '@/Components/RichTextEditor.vue'
 
@@ -15,6 +17,8 @@ const props = defineProps({
   post: Object,
 })
 
+console.log('Post', props.post)
+// Wysiwyg options
 const options = {
   modules: {
     toolbar: {
@@ -35,6 +39,7 @@ const options = {
         ['link', 'image'],
       ],
       handlers: {
+        // Handler for upload image to server (default quill paste it in base64)
         image() {
           const file = document.createElement('input')
           file.setAttribute('type', 'file')
@@ -64,11 +69,11 @@ const form = useForm({
   content: '' || props.post?.content,
   published: Boolean(props.post?.posted_at),
   user_id: usePage().props.value.auth.user.id || '',
+  tags: [],
 })
 
-console.log(props.post?.content)
-
 function savePost() {
+  form.tags = selectedTags.value
   form[props.post ? 'patch' : 'post'](
     props.post ? route('posts.update', props.post.slug) : route('posts.store'),
     {
@@ -81,6 +86,28 @@ function savePost() {
     },
   )
 }
+
+// Multiselect options
+const tags = ref([
+  { name: 'Vue.js', id: 1 },
+  { name: 'Rails', id: 2 },
+  { name: 'Sinatra', id: 3 },
+  { name: 'Laravel', id: 4 },
+  { name: 'Phoenix', id: 5 },
+])
+const selectedTags = ref(props.post?.tags || [])
+function addTag(newTag) {
+  const tag = {
+    name: newTag,
+    id: newTag + '_' + Math.random() * 10000000,
+  }
+  selectedTags.value.push(tag)
+  tags.value.push(tag)
+}
+function asyncFind() {
+  tags.value = ['test1', 'test2', 'test3', 'after find']
+}
+
 </script>
 
 <template>
@@ -123,6 +150,28 @@ function savePost() {
         <div class="col-span-6 sm:col-span-4">
           <CLabel value="Post content" />
           <RichTextEditor v-model:value="form.content" :content="form.content" :options="options" />
+          <CInputError :message="form.errors.content" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+          <CLabel value="Post tags" />
+          <VueMultiselect
+            v-model="selectedTags"
+            :options="tags"
+            :multiple="true"
+            :searchable="true"
+            placeholder="Type to search"
+            :hide-selected="true"
+            :close-on-select="false"
+            :taggable="true"
+            label="name"
+            track-by="id"
+            @tag="addTag"
+          >
+            <span>
+              Oops! No elements found. Consider changing the search query.
+            </span>
+          </VueMultiselect>
           <CInputError :message="form.errors.content" class="mt-2" />
         </div>
       </template>

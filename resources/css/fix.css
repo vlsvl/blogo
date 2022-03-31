@@ -1,3 +1,4 @@
+@import './../../node_modules/vue-multiselect/dist/vue-multiselect.css';
 /*Fix for text editor*/
 .ql-container.ql-snow {
   height: auto;
@@ -5,3 +6,17 @@
 .ql-container.ql-snow .ql-editor {
   height: auto;
 }
+/*Fix for multiselect*/
+.multiselect .multiselect__input:focus {
+  box-shadow: none;
+}
+.multiselect .multiselect__option--highlight {
+  background-color: #0081cc;
+}
+.multiselect .multiselect__option--highlight::after {
+  background-color: #0081cc;
+}
+.multiselect .multiselect__tag {
+  background-color: #0081cc;
+}
+
