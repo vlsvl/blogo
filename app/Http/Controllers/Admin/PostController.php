@@ -66,12 +66,14 @@ class PostController extends Controller
     {
        $post = Post::create($request->validated());
 
-       $tags = [];
-       foreach ($request->get('tags') as  $tag) {
-           $tags[] = Tag::firstOrCreate(['name' => $tag['name']])->id;
-       }
+       if ($newTags = $request->get('tags')) {
+           $tags = [];
+           foreach ($newTags as  $tag) {
+               $tags[] = Tag::firstOrCreate(['name' => $tag['name']])->id;
+           }
 
-       $post->tags()->sync($tags);
+           $post->tags()->sync($tags);
+       }
 
        return redirect()->route('posts.index')
            ->with('success', 'Post created!');

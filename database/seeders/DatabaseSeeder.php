@@ -31,9 +31,5 @@ class DatabaseSeeder extends Seeder
         \App\Models\Post::factory(50)->create();
 
         \App\Models\Comment::factory(100)->create();
-
-        $this->call(
-            TagSeeder::class
-        );
     }
 }
