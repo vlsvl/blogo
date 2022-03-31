@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\PostRequest;
 use App\Models\Filters\PostFilter;
 use App\Models\Post;
+use App\Models\Tag;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,7 +64,14 @@ class PostController extends Controller
      */
     public function store(PostRequest $request): \Illuminate\Http\RedirectResponse
     {
-       Post::create($request->validated());
+       $post = Post::create($request->validated());
+
+       $tags = [];
+       foreach ($request->get('tags') as  $tag) {
+           $tags[] = Tag::firstOrCreate(['name' => $tag['name']])->id;
+       }
+
+       $post->tags()->sync($tags);
 
        return redirect()->route('posts.index')
            ->with('success', 'Post created!');
@@ -88,6 +96,9 @@ class PostController extends Controller
      */
     public function edit(Post $post): \Inertia\Response
     {
+        $post->loadMorph('tags', [
+            Post::class => 'tag_id'
+        ]);
         return Inertia::render(
             'Admin/Posts/CreateUpdate',
             [
@@ -98,6 +109,7 @@ class PostController extends Controller
                     'content' => $post->content,
                     'posted_at' => $post->posted_at ? $post->posted_at->format('d.m.Y') : '',
                     'user' => $post->user->name,
+                    'tags' => $post->tags()->get()->map->only(['id', 'name']),
                 ]
             ]
         );
@@ -114,6 +126,13 @@ class PostController extends Controller
     {
         $data= $request->validated();
         $post->update($data);
+
+        $tags = [];
+        foreach ($request->get('tags') as  $tag) {
+            $tags[] = Tag::firstOrCreate(['name' => $tag['name']])->id;
+        }
+
+        $post->tags()->sync($tags);
 
         return redirect()->route('posts.index')
             ->with('success', 'Post has been updated');

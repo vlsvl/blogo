@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Cache;
 
 class Post extends Model
@@ -31,35 +32,40 @@ class Post extends Model
     {
         return 'slug';
 
-    }//end getRouteKeyName()
+    }
 
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
 
-    }//end user()
+    }
 
 
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
 
-    }//end comments()
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 
 
     public function scopeLatestDesc(Builder $query): Builder
     {
         return $query->orderBy('updated_at', 'desc');
 
-    }//end scopeLatestDesc()
+    }
 
 
     public function scopePosted(Builder $query): Builder
     {
         return $query->where('posted_at', '<>', null);
 
-    }//end scopePosted()
+    }
 
 
     public function getFirstParagraph()
@@ -75,7 +81,7 @@ class Post extends Model
             }
         );
 
-    }//end getFirstParagraph()
+    }
 
 
-}//end class
+}

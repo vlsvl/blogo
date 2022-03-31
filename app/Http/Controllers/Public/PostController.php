@@ -35,6 +35,9 @@ class PostController extends Controller
 
     public function show(Request $request, Post $post)
     {
+        $post->loadMorph('tags', [
+            Post::class => 'tag_id'
+        ]);
         return Inertia::render('Public/Show', [
             'post' => [
                 'id' => $post->id,
@@ -46,6 +49,7 @@ class PostController extends Controller
                     'id' => $post->user->id,
                     'name' => $post->user->name,
                 ],
+                'tags' => $post->tags,
             ],
             'comments' => Comment::where('post_id', $post->id)
                 ->with('user')
