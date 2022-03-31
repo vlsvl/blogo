@@ -53,6 +53,8 @@ export default defineComponent({
     '$page.props.flash': {
       handler() {
         this.show = true
+
+        setTimeout(() => this.show = false, 3000)
       },
       deep: true,
     },
