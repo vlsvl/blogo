@@ -17,9 +17,8 @@ const props = defineProps({
   post: Object,
 })
 
-console.log('Post', props.post)
 // Wysiwyg options
-const options = {
+const optionsWysiwyg = {
   modules: {
     toolbar: {
       container: [
@@ -88,14 +87,9 @@ function savePost() {
 }
 
 // Multiselect options
-const tags = ref([
-  { name: 'Vue.js', id: 1 },
-  { name: 'Rails', id: 2 },
-  { name: 'Sinatra', id: 3 },
-  { name: 'Laravel', id: 4 },
-  { name: 'Phoenix', id: 5 },
-])
+const tags = ref([])
 const selectedTags = ref(props.post?.tags || [])
+const isLoading = ref(false)
 function addTag(newTag) {
   const tag = {
     name: newTag,
@@ -104,8 +98,17 @@ function addTag(newTag) {
   selectedTags.value.push(tag)
   tags.value.push(tag)
 }
-function asyncFind() {
-  tags.value = ['test1', 'test2', 'test3', 'after find']
+function asyncFind(query) {
+  isLoading.value = true
+  axios.post(route('loadTags'), null, {
+    params: {
+      tag: query,
+    },
+  })
+    .then(response => {
+      tags.value = response.data.tags
+      isLoading.value = false
+    })
 }
 
 </script>
@@ -149,7 +152,7 @@ function asyncFind() {
 
         <div class="col-span-6 sm:col-span-4">
           <CLabel value="Post content" />
-          <RichTextEditor v-model:value="form.content" :content="form.content" :options="options" />
+          <RichTextEditor v-model:value="form.content" :content="form.content" :options="optionsWysiwyg" />
           <CInputError :message="form.errors.content" class="mt-2" />
         </div>
 
@@ -160,13 +163,18 @@ function asyncFind() {
             :options="tags"
             :multiple="true"
             :searchable="true"
+            :loading="isLoading"
             placeholder="Type to search"
             :hide-selected="true"
             :close-on-select="false"
+            :internal-search="false"
+            :limit="3"
+            :options-limit="300"
             :taggable="true"
             label="name"
             track-by="id"
             @tag="addTag"
+            @search-change="asyncFind"
           >
             <span>
               Oops! No elements found. Consider changing the search query.

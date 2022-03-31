@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\UserProfileController;
@@ -50,9 +51,13 @@ Route::group([
         Route::resource('posts', PostController::class);
         // Comments
         Route::resource('comments', CommentController::class);
-
+        // Post editor image upload
         Route::post('upload/{post}', [UploadController::class, 'uploadImage'])
             ->name('uploadImage');
+        // Search modal for admin layout
         Route::post('search', [SearchController::class, 'search'])
             ->name('search');
+        // Tags
+        Route::post('tags', [TagController::class, 'load'])
+            ->name('loadTags');
 });
