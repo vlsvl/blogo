@@ -18,17 +18,6 @@ class HandleInertiaRequests extends Middleware
     protected $rootView = 'app';
 
     /**
-     * Determine the current asset version.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    public function version(Request $request)
-    {
-        return parent::version($request);
-    }
-
-    /**
      * Define the props that are shared by default.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,6 +43,9 @@ class HandleInertiaRequests extends Middleware
             'locales' => fn () => config('blogo.locales'),
             'translation' => fn () => app(TranslationService::class)
                     ->getTranslations(app()->getLocale()),
+            'adminMenu' => $request->user()
+                ? app('App\Services\AdminMenuService')->getMenu()
+                : null,
         ]);
     }
 }

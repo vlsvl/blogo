@@ -1,13 +1,13 @@
 <script setup>
 import {ref} from 'vue'
-import {Head, Link, useForm} from '@inertiajs/inertia-vue3'
+import {Head, Link, usePage} from '@inertiajs/inertia-vue3'
 import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
 import FlashMessages from '@/Components/FlashMessages.vue'
 import LocaleSwitch from '@/Components/Admin/LocaleSwitch'
 import {useActive} from '@/Composable/route_active'
-import {adminLinks} from '@/params'
+import {adminMenuIcons} from '@/params'
 import Search from '@/Components/Admin/Search'
 
 defineProps({
@@ -15,18 +15,18 @@ defineProps({
 })
 
 const sidebarOpen = ref(false)
+const sidebarItems = usePage().props.value.adminMenu
 
 const isCollapsed = (links) => {
-  let isCollapsed = true
   links.forEach(link => {
     if (route().current(link.route)) {
-      isCollapsed = false
+      return false
     }
     if (route().current(link.route.split('.')[0] + '*')) {
-      isCollapsed = false
+      return false
     }
   })
-  return isCollapsed
+  return true
 }
 
 const {isActive} = useActive()
@@ -77,23 +77,23 @@ function close () {
         w-full
       "
       >
-        <ul v-if="adminLinks.length" class="md:min-w-full flex flex-col list-none">
-          <li v-for="(link, id) in adminLinks" :key="id" class="items-center">
+        <ul v-if="sidebarItems.length" class="md:min-w-full flex flex-col list-none">
+          <li v-for="(link, id) in sidebarItems" :key="id" class="items-center">
             <!-- Simple link -->
             <icon-link
               v-if="link.type === 'link'"
               :href="route(link.route)"
               :active="route().current(link.route)"
-              :icon="link.icon"
+              :icon="adminMenuIcons[link.title]"
             >
               {{ link.title }}
             </icon-link>
             <!-- Collapsed links block -->
-            <collapse
+            <Collapse
               v-if="link.type === 'collapse'"
               :title="link.title"
               :collapsed="isCollapsed(link.pages)"
-              :icon="link.icon"
+              :icon="adminMenuIcons[link.title]"
             >
               <ul
                 v-if="link.pages.length"
@@ -112,7 +112,7 @@ function close () {
                   </icon-link>
                 </li>
               </ul>
-            </collapse>
+            </Collapse>
           </li>
         </ul>
       </div>
