@@ -1,11 +1,17 @@
 pipeline {
-    agent {'docker'}
+    agent any
 
     stages {
 
         stage ('Test') {
             steps {
                 print('Hello world!')
+
+                sh ''':
+                    echo "test"
+
+                    docker ps
+                :'''
             }
         }
 
