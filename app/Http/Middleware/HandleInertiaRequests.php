@@ -46,6 +46,9 @@ class HandleInertiaRequests extends Middleware
             'adminMenu' => $request->user()
                 ? app('App\Services\AdminMenuService')->getMenu()
                 : null,
+            'unreadMessage' => $request->user()
+                ? $request->user()->getUnreadMessageCount()
+                : 0,
         ]);
     }
 }

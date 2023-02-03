@@ -59,7 +59,7 @@ const { isActive } = useActive()
       </div>
       <!-- End Nav Bar -->
       <!-- User Menu -->
-      <user-dropdown-menu class="p-4 text-main-blue" />
+      <UserDropdownMenu class="p-4 text-main-blue" />
       <!-- End User Menu -->
     </nav>
     <!-- Header end -->

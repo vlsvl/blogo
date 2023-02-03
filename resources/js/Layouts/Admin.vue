@@ -4,11 +4,13 @@ import {Head, Link, usePage} from '@inertiajs/inertia-vue3'
 import IconLink from '@/Components/Admin/IconLink'
 import Collapse from '@/Components/Admin/IconCollapse'
 import UserDropdownMenu from '@/Components/UserDropdownMenu'
+import MessageNotify from '@/Components/MessageNotify'
 import FlashMessages from '@/Components/FlashMessages.vue'
 import LocaleSwitch from '@/Components/Admin/LocaleSwitch'
 import {useActive} from '@/Composable/route_active'
 import {adminMenuIcons} from '@/params'
 import Search from '@/Components/Admin/Search'
+import Notify from '@/Components/Notify'
 
 defineProps({
   title: String,
@@ -18,15 +20,16 @@ const sidebarOpen = ref(false)
 const sidebarItems = usePage().props.value.adminMenu
 
 const isCollapsed = (links) => {
+  let collapse = true
   links.forEach(link => {
     if (route().current(link.route)) {
-      return false
+      collapse = false
     }
     if (route().current(link.route.split('.')[0] + '*')) {
-      return false
+      collapse = false
     }
   })
-  return true
+  return collapse
 }
 
 const {isActive} = useActive()
@@ -46,6 +49,10 @@ function close () {
 <template>
   <div class="flex">
     <Head :title="title" />
+    <!-- Notificate -->
+    <Teleport to="body">
+      <Notify />
+    </Teleport>
     <!-- Sidebar -->
     <nav
       class="
@@ -180,6 +187,7 @@ function close () {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
+            <MessageNotify class="text-white" />
             <LocaleSwitch class="text-white mr-3" />
             <UserDropdownMenu class="text-white" />
           </div>
