@@ -6,6 +6,12 @@ pipeline {
         stage ('Test') {
             steps {
                 print('Hello world!')
+
+                sh ''':
+                    echo "test"
+
+                    docker ps
+                :'''
             }
         }
 
