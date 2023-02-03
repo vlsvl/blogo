@@ -28,6 +28,7 @@ class FeatureCommand extends Command
      */
     public function handle()
     {
+        base_path();
         TestJob::dispatch()->onQueue('orders');
         return 0;
     }

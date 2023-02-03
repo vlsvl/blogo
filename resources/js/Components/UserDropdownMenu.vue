@@ -28,6 +28,9 @@ export default {
     signedIn() {
       return !!usePage().props.value.auth.user
     },
+    hasMessages() {
+      return !!usePage().props.value.messages
+    },
   },
 }
 </script>
@@ -44,6 +47,7 @@ export default {
             rounded-full
             focus:outline-none focus:border-gray-300
             transition
+            has-messages
           "
         >
           <div class="h-8 w-8 rounded-full object-cover">
@@ -54,8 +58,6 @@ export default {
 
       <template #content>
         <!-- Account Management -->
-        <!-- <div class="block px-4 py-2 text-xs text-gray-400">Manage Account</div> -->
-
         <dropdown-link v-if="signedIn" :href="route('profile', $page.props.auth.user?.id)">
           {{ __("Profile") }}
         </dropdown-link>
@@ -84,3 +86,15 @@ export default {
     </dropdown>
   </div>
 </template>
+
+<style>
+  .has-messages::after {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 5px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+</style>

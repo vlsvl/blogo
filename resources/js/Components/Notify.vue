@@ -1,5 +1,5 @@
 <template>
-  <div v-show="elementVisible" id="notify" class="absolute top-2 right-2 ml-auto mr-3 flex flex-col gap-2 w-72 border-b-4 shadow-lg">
+  <div v-show="elementVisible" id="notify" class="absolute top-2 right-2 ml-auto mr-3 flex flex-col gap-2 w-72 border-b-4 shadow-lg z-50">
     <div class="bg-white rounded-t text-gray-900 px-4 py-3" role="alert">
       <div class="flex">
         <div>
@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
 import { onMounted, ref } from 'vue'
 const elementVisible = ref(false)
 const message = ref('Test')

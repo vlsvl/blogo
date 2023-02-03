@@ -6,6 +6,7 @@ use App\Models\Traits\EntityFilter;
 use App\Models\Traits\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -62,5 +63,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function getUnreadMessageCount(): int
+    {
+        return $this->messages()->where('read', false)->count();
+    }
+
+    public function getMessages(): Collection
+    {
+        return $this->messages()->get();
     }
 }

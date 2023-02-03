@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SearchController;
@@ -60,4 +61,6 @@ Route::group([
         // Tags
         Route::post('tags', [TagController::class, 'load'])
             ->name('loadTags');
+        // Messages
+        Route::resource('messages', MessageController::class);
 });
